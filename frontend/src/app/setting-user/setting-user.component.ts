@@ -576,7 +576,7 @@ export class SettingUserComponent implements OnInit {
   testexcel() {
     var obj = this.total
 
-    this.http.post<any>('http://localhost:4001/excel', obj).subscribe((res) => {
+    this.http.post<any>('http://localhost:4001/userExcel', obj).subscribe((res) => {
       console.log(obj)
     })
     this.onGetTable()

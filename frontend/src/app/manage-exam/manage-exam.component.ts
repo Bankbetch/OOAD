@@ -122,7 +122,7 @@ export class ManageExamComponent implements OnInit {
   }
   timeStartO = []
   getBuilding() {
-    this.http.get<any>('http://localhost:4001/getroom').subscribe(result => {
+    this.http.get<any>('http://localhost:4001/room').subscribe(result => {
       this.dataRoom = result.data
       var year = (new Date()).getFullYear()
       this.addIncres.get('year').setValue(year)
@@ -173,7 +173,7 @@ export class ManageExamComponent implements OnInit {
       term: this.addIncres.value.term, year: this.addIncres.value.year, sit: this.addIncres.value.sit
     }
 
-    this.http.post<any>('http://localhost:4001/subjectlearn', obj).subscribe(result => {
+    this.http.post<any>('http://localhost:4001/learns', obj).subscribe(result => {
       console.log(obj)
       if (result.status == true) {
         this.allowAlertInsert = true
@@ -197,7 +197,7 @@ export class ManageExamComponent implements OnInit {
   ArrSit = []
   getSubjectLearn() {
     var arr
-    this.http.get<any>('http://localhost:4001/subjectlearn').subscribe(result => {
+    this.http.get<any>('http://localhost:4001/learns').subscribe(result => {
       this.dataSubjectLearn = result.data
       // for (let item of this.dataSubjectLearn) {
       //   console.log(item.sit)
@@ -712,7 +712,7 @@ export class ManageExamComponent implements OnInit {
     var count = 1
     var arr = []
     var arrStu = []
-    this.http.get<any>("http://localhost:4001/getdata").subscribe(result => {
+    this.http.get<any>("http://localhost:4001/user").subscribe(result => {
       this.dataTeacher = result.data
       for (let item of this.dataTeacher) {
         if (item.types == "อาจารย์" || item.types == "อาจารย์,คนคุมสอบ" || item.types == "คนคุมสอบ,อาจารย์") {
@@ -918,10 +918,10 @@ export class ManageExamComponent implements OnInit {
       }
     }
 
-    this.http.post<any>('http://localhost:4001/excel/insert', this.ArrayStudent).subscribe((res) => {
+    this.http.post<any>('http://localhost:4001/userInsertExcel', this.ArrayStudent).subscribe((res) => {
     })
 
-    this.http.patch<any>('http://localhost:4001/subjectlearn/', obj).subscribe((res) => {
+    this.http.patch<any>('http://localhost:4001/learnsUpdate/', obj).subscribe((res) => {
       console.log(obj)
       this.allowAlertEdit = true
       setTimeout(() => {
@@ -1096,7 +1096,7 @@ export class ManageExamComponent implements OnInit {
       setTimeout(() => {
         this.allowAlertDelete = false
       }, 5000);
-      this.http.post('http://localhost:4001/subjectlearn/delete', this.dataDelete).subscribe((res) => {
+      this.http.post('http://localhost:4001/learnsDelete', this.dataDelete).subscribe((res) => {
         this.clearEdit()
         document.getElementById("closeModalDelete").click();
       })
@@ -1168,7 +1168,7 @@ export class ManageExamComponent implements OnInit {
     this.disableBtnSave = false
 
     if (this.ArrayStudent.length > 0) {
-      this.http.post<any>('http://localhost:4001/excel/', this.ArrayStudent).subscribe((res) => {
+      this.http.post<any>('http://localhost:4001/userExcel/', this.ArrayStudent).subscribe((res) => {
         console.log(res.status)
       })
     }
