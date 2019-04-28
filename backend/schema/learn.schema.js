@@ -1,0 +1,19 @@
+const moogoose = require('moogoose')
+
+var learnSchema = moogoose.Schema({
+    id: String,
+    name: String,
+    teacher: Array,
+    faculty: String,
+    build: String,
+    unit: String,
+    year: String,
+    term: String,
+    room: String,
+    day: rString,
+    timeStart: String,
+    timeEnd: rString,
+    sit: String,
+    student: Array
+})
+module.exports = moogoose.model('subjectlearns', learnSchema)

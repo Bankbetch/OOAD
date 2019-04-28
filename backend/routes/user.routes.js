@@ -8,4 +8,5 @@ module.exports = (app) => {
     app.patch('/userUpdate', users.update);
 
     app.post('/userDelete', users.delete);
+
 }

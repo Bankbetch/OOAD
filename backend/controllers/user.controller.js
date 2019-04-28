@@ -45,4 +45,3 @@ exports.delete = (req, res) => {
         User.findByIdAndRemove(item).then((obj) => { res.json({ data: obj }) })
     })
 }
-

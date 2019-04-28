@@ -68,30 +68,31 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //     });
 // })
 
-var newa = []
-var status
-app.post('/excel', (req, res) => {
-    const db = client.db(dbName)
-    req.body.forEach(function (item) {
-        userModel.collection('users').findOne({ username: item.username }, (err, result) => {
-            if (result == null) {
-                newa.push(item)
-                status = true
-            } else {
-                status = false
-            }
-        })
-    });
-})
+// var newa = []
+// var status
 
-//อันนี้ฝากเช็คด้วยไม่รู้ถูกไหมม บักหลาม
-app.post('/excel/insert', (req, res) => {
-    if (status == true) {
-        const newUserExcel = new userModel()
-        newUserExcel = newa
-        newUserExcel.save()
-    }
-})
+// app.post('/excel', (req, res) => {
+//     const db = client.db(dbName)
+//     req.body.forEach(function (item) {
+//         userModel.collection('users').findOne({ username: item.username }, (err, result) => {
+//             if (result == null) {
+//                 newa.push(item)
+//                 status = true
+//             } else {
+//                 status = false
+//             }
+//         })
+//     });
+// })
+
+// //อันนี้ฝากเช็คด้วยไม่รู้ถูกไหมม บักหลาม
+// app.post('/excel/insert', (req, res) => {
+//     if (status == true) {
+//         const newUserExcel = new userModel()
+//         newUserExcel = newa
+//         newUserExcel.save()
+//     }
+// })
 
 app.post('/tablesubject', (req, res) => {
     subjectModel.findOne({ id: req.body.id }, (err, result) => {
