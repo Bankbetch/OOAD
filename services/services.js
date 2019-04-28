@@ -98,8 +98,7 @@ app.post('/tablesubject', (req, res) => {
     subjectModel.findOne({ id: req.body.id }, (err, result) => {
         if (result === null) {
             console.log(req.body)
-            subjectModel.create(req.body, (err, result) => {
-            })
+            subjectModel.create(req.body, (err, result) => {})
             res.json({ status: true })
         } else {
             console.log(req.body)
@@ -107,6 +106,7 @@ app.post('/tablesubject', (req, res) => {
         }
     })
 })
+
 app.patch('/tablesubject/', (req, res) => {
     subjectModel.updateOnefindOneAndUpdate({ id: req.body.id }, { $set: req.body }, () => {
         res.json({ status: true })
@@ -127,7 +127,7 @@ app.get('/tablesubject/:id', (req, res) => {
 
 app.post('/tablesubject/delete', (req, res) => {
     var idRemove = []
-    req.body.forEach(function (item) {
+    req.body.forEach(function(item) {
         idRemove.push(item)
     })
     const query = { _id: { $in: idRemove } }
@@ -219,4 +219,3 @@ app.post('/tablesubject/delete', (req, res) => {
 app.listen(port, () => {
     console.log(`App listening on ${port}`)
 })
-

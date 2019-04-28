@@ -69,7 +69,7 @@ export class AddSubjectComponent implements OnInit {
   lenghtData: Number
   sortedCollection: any[];
   getSubject() {
-    this.http.get<any>('http://localhost:4001/tableSubject').subscribe(result => {
+    this.http.get<any>('http://localhost:4001/subject').subscribe(result => {
       this.dataSubject = result.data
       console.log(this.dataSubject)
       this.sortedCollection = this.orderPipe.transform(this.dataSubject, '');
@@ -121,7 +121,7 @@ export class AddSubjectComponent implements OnInit {
       id: this.addIncres.value.id, name: this.addIncres.value.nameSubject,
       faculty: this.addIncres.value.faculty, unit: this.addIncres.value.unit
     }
-    this.http.post<any>('http://localhost:4001/tablesubject', obj).subscribe(result => {
+    this.http.post<any>('http://localhost:4001/subject', obj).subscribe(result => {
       if (result.status == true) {
         document.getElementById("CloseInsert").click()
         this.getSubject()
@@ -157,7 +157,7 @@ export class AddSubjectComponent implements OnInit {
       id: this.addIncres.value.id, name: this.addIncres.value.nameSubject,
       faculty: this.addIncres.value.faculty, unit: this.addIncres.value.unit
     }
-    this.http.patch<any>('http://localhost:4001/tablesubject', obj).subscribe(result => {
+    this.http.patch<any>('http://localhost:4001/subjectUpdate', obj).subscribe(result => {
       console.log(obj)
       document.getElementById("CloseEdit").click()
       this.getSubject()
@@ -185,7 +185,7 @@ export class AddSubjectComponent implements OnInit {
   onDelete() {
     console.log(this.dataDelete)
     if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
-      this.http.post('http://localhost:4001/tablesubject/delete', this.dataDelete).subscribe((res) => {
+      this.http.post('http://localhost:4001/subjectDelete', this.dataDelete).subscribe((res) => {
         document.getElementById("CloseDelete").click();
         this.getSubject()
       })
