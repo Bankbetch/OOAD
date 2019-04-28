@@ -9,8 +9,7 @@
         </div>
         <div class="col-8">
             <div class="input-group">
-                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา"
-                    [(ngModel)]="searchString">
+                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา" [(ngModel)]="searchString">
                 <div class="input-group-prepend bg-white">
                     <span class="input-group-text border-left-0 rounded-right bg-white">
                         <i class="fa fa-search"></i>
@@ -22,13 +21,12 @@
         <div class="col">
             <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete" data-dismiss="modal">
                 <i class="fa fa-trash"></i></button> &nbsp;
-            <button class="btn btn-outline-success" (click)="clear()" data-toggle="modal" data-target="#modalInsert"
-                data-dismiss="modal"> <i class="fa fa-plus"></i></button>
+            <button class="btn btn-outline-success" (click)="clear()" data-toggle="modal" data-target="#modalInsert" data-dismiss="modal"> <i class="fa fa-plus"></i></button>
         </div>
     </div>
     <br>
     <div class="table-responsive">
-        <table class="table table-hover table-striped text-center table-bordered">
+        <table class="table table-hover text-center">
             <thead>
                 <tr>
                     <th scope="col">เลือก</th>
@@ -50,8 +48,7 @@
                     <td> {{item.faculty}} </td>
                     <td> {{item.unit}} </td>
                     <td>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit"
-                            data-dismiss="modal" (click)="tableCkick(
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" data-dismiss="modal" (click)="tableCkick(
                 item._id,
               item.id,
               item.name,
@@ -60,8 +57,7 @@
               )">
                             <i class="fa fa-edit"></i> </button>
                     </td>
-                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalInsert" tabindex="-1"
-                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-md" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -73,8 +69,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>รหัสวิชา</label>
-                                                    <input class="form-control" formControlName="id"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                                    <input class="form-control" formControlName="id" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
                                                     <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
                                                         <div *ngIf="f.id.errors.required">กรุณากรอกรหัสวิชา</div>
                                                     </div>
@@ -83,11 +78,8 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>ชื่อวิชา </label>
-                                                    <input class="form-control" formControlName="nameSubject"
-                                                        (keypress)="isNotNumber($event)"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
-                                                    <div *ngIf="submitted && f.nameSubject.errors"
-                                                        class="invalid-feedback">
+                                                    <input class="form-control" formControlName="nameSubject" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                                    <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
                                                         <div *ngIf="f.nameSubject.errors.required">Subกรุณากรอกชื่อวิชา
                                                         </div>
                                                     </div>
@@ -98,9 +90,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>คณะ </label>
-                                                    <input class="form-control" formControlName="faculty"
-                                                        (keypress)="isNotNumber($event)"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }">
+                                                    <input class="form-control" formControlName="faculty" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }">
                                                     <div *ngIf="submitted && f.faculty.errors" class="invalid-feedback">
                                                         <div *ngIf="f.faculty.errors.required">กรุณากรอกคณะ</div>
                                                     </div>
@@ -109,9 +99,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>หน่วยกิต </label>
-                                                    <input class="form-control" type="number" formControlName="unit"
-                                                        maxlength="1"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
+                                                    <input class="form-control" type="number" formControlName="unit" maxlength="1" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
                                                     <div *ngIf="submitted && f.unit.errors" class="invalid-feedback">
                                                         <div *ngIf="f.unit.errors.required">กรุณากรอกหน่วยกิต</div>
                                                     </div>
@@ -125,8 +113,7 @@
 
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-success">บันทึก</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                id="CloseInsert">ยกเลิก</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseInsert">ยกเลิก</button>
                                         </div>
                                     </form>
                                 </div>
@@ -136,8 +123,7 @@
 
 
                     <!-- ModelEdit -->
-                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalEdit" tabindex="-1"
-                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-md" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -149,8 +135,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>รหัสวิชา</label>
-                                                    <input class="form-control" formControlName="id"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                                    <input class="form-control" formControlName="id" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
                                                     <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
                                                         <div *ngIf="f.id.errors.required">กรุณากรอกรหัสวิชา</div>
                                                     </div>
@@ -159,11 +144,8 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>ชื่อวิชา </label>
-                                                    <input class="form-control" formControlName="nameSubject"
-                                                        (keypress)="isNotNumber($event)"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
-                                                    <div *ngIf="submitted && f.nameSubject.errors"
-                                                        class="invalid-feedback">
+                                                    <input class="form-control" formControlName="nameSubject" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                                    <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
                                                         <div *ngIf="f.nameSubject.errors.required">Subกรุณากรอกชื่อวิชา
                                                         </div>
                                                     </div>
@@ -174,9 +156,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>คณะ </label>
-                                                    <input class="form-control" formControlName="faculty"
-                                                        (keypress)="isNotNumber($event)"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }">
+                                                    <input class="form-control" formControlName="faculty" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }">
                                                     <div *ngIf="submitted && f.faculty.errors" class="invalid-feedback">
                                                         <div *ngIf="f.faculty.errors.required">กรุณากรอกคณะ</div>
                                                     </div>
@@ -185,9 +165,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>หน่วยกิต </label>
-                                                    <input class="form-control" type="number" formControlName="unit"
-                                                        maxlength="1"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
+                                                    <input class="form-control" type="number" formControlName="unit" maxlength="1" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
                                                     <div *ngIf="submitted && f.unit.errors" class="invalid-feedback">
                                                         <div *ngIf="f.unit.errors.required">กรุณากรอกหน่วยกิต</div>
                                                     </div>
@@ -196,8 +174,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-success">บันทึก</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                id="CloseEdit">ยกเลิก</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseEdit">ยกเลิก</button>
                                         </div>
                                     </form>
                                 </div>
@@ -207,8 +184,7 @@
                     <!-- ModelEdit -->
 
                     <!-- ModelDelete -->
-                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalDelete" tabindex="-1"
-                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -222,8 +198,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success" (click)="onDelete()">บันทึก</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                        id="CloseDelete" (click)="onClear()">ยกเลิก</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseDelete" (click)="onClear()">ยกเลิก</button>
                                 </div>
                             </div>
                         </div>
