@@ -1,0 +1,353 @@
+<div class="container">
+    <br>
+    <h1 class="text-secondary text-center">จัดการการสอบ</h1>
+    <div class="row">
+        <div class="col-1">
+            <select class="form-control" [(ngModel)]="dataOtShow">
+      <option *ngFor="let item of otShow">{{item.number}}</option>
+    </select>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา" [(ngModel)]="searchString">
+                <div class="input-group-prepend bg-white">
+                    <span class="input-group-text border-left-0 rounded-right bg-white">
+          <i class="fa fa-search"></i>
+        </span>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <select class="custom-select" size="1">
+      <option selected disabled>ปีการศึกษา</option>
+      <option value="1">2560</option>
+      <option value="2">2561</option>
+      <option value="3">2562</option>
+    </select>
+        </div>
+        <div class="col">
+            <select class="custom-select" size="1">
+      <option selected disabled>ภาคเรียน</option>
+      <option value="1">2561/1</option>
+      <option value="2">2561/2</option>
+      <option value="3">2561/3</option>
+      <option value="4">ทั้งหมด</option>
+    </select>
+        </div>
+        <div class="col">
+            <select class="custom-select" size="1">
+      <option selected disabled>การสอบ</option>
+      <option value="1">กลางภาค</option>
+      <option value="2">ปลายภาค</option>
+      <option value="3">ฤดูร้อน</option>
+      <option value="4">ทั้งหมด</option>
+    </select>
+        </div>
+
+        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDel" (click)="cancelExam()">
+    <i class="fa fa-trash"></i>ยกเลิกการสอบ</button>&nbsp;
+
+        <button class="btn btn-outline-success" id="insertEx" data-toggle="modal" data-target="#modalInsert" (click)="onClear()">
+    <i class="fa fa-plus"></i>เพิ่มการสอบ</button>&nbsp;
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped text-center table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">เลือก</th>
+                    <th scope="col" [class.active]="order === 'id'" (click)="setOrder('id')">รหัสวิชา</th>
+                    <th scope="col" [class.active]="order === 'name'" (click)="setOrder('name')">ชื่อวิชา</th>
+                    <th scope="col" [class.active]="order === 'faculty'" (click)="setOrder('faculty')">คณะ</th>
+                    <th scope="col" [class.active]="order === 'teacher'" (click)="setOrder('teacher')">อาจารย์</th>
+                    <th scope="col">วัน</th>
+                    <th scope="col">เวลาเริ่ม</th>
+                    <th scope="col">เวลาจบ</th>
+                    <th scope="col">ห้องสอบ</th>
+                    <th scope="col">จำนวนนิสิต</th>
+                    <th scope="col">คนคุมสอบ</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data | filterPipe:{id:searchString,name:searchString,faculty:searchString,teacher:searchString,day:searchString}
+          | paginate: { itemsPerPage: dataOtShow, currentPage: p } | orderBy: order:reverse:'case-insensitive' ; let i = index
+          ">
+                    <td><label><input type="checkbox" value="{{ item._id }}"
+              (change)="onSetDataDelete($event, item._id)" /></label>
+                    </td>
+                    <td>{{item.id}} </td>
+                    <td>{{item.name}} </td>
+                    <td>{{item.faculty}} </td>
+                    <td>{{item.teacher}} </td>
+                    <td>{{item.day}} </td>
+                    <td>{{item.timeStart}} </td>
+                    <td>{{item.timeEnd}} </td>
+                    <td>{{item.room}}</td>
+                    <td>{{item.amongNisit}}</td>
+                    <td>{{item.examer}}</td>
+                    <td>{{item.statusExam}}</td>
+                    <td>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" data-dismiss="modal" (click)=" tableClick(
+            item.id,
+            item.name,
+            item.teacher,
+            item.faculty,
+            item.timeStart,
+            item.timeEnd,
+            item.day,
+            item.room,
+            item.amongNisit
+            )">
+            <i class="fa fa-edit"></i></button>&nbsp;
+                        <!-- <button class="btn btn-info" (click)="openExam(item.id)"><i class="fa fa-book"></i>นัดสอบใหม่</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event" class="text-center"></pagination-controls>
+    </div>
+</div>
+
+
+<!-- ModalInsert -->
+
+<div class="modal fade" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">เพิ่มการสอบ</h5>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="form" (ngSubmit)="insertExam()">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>รหัสวิชา</label>
+                                <select class="form-control" formControlName="id" (change)="checkIdSubject()" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of subjectOpen">{{item.id}}</option>
+              </select>
+                                <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+                                    <div *ngIf="f.id.errors.required">กรุณาเลือกรหัสวิชา</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>ชื่อวิชา </label>
+                                <select class="form-control" formControlName="nameSubject" (change)="checkNameSubject()" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of subjectOpen">{{item.name}}</option>
+              </select>
+                                <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nameSubject.errors.required">กรุณาเลือกชื่อวิชา</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>ชื่ออาจารย์ </label>
+                                <input type="text" formControlName="nameTeacher" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                <div *ngIf="submitted && f.nameTeacher.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nameTeacher.errors.required">
+                                        กรุณากรอกชื่ออาจารย์
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>คณะ </label>
+                                    <input type="text" formControlName="faculty" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                    <div *ngIf="submitted && f.faculty.errors" class="invalid-feedback">
+                                        <div *ngIf="f.faculty.errors.required">
+                                            กรุณากรอกคณะ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>วัน </label>
+                                <select class="form-control" formControlName="day" [ngClass]="{ 'is-invalid': submitted && f.day.errors }" (change)="checkDay()">
+                <option>จันทร์</option>
+                <option>อังคาร</option>
+                <option>พุธ</option>
+                <option>พฤหัสบดี</option>
+                <option>ศุกร์</option>
+                <option>เสาร์</option>
+                <option>อาทิตย์</option>
+              </select>
+                                <div *ngIf="submitted && f.day.errors" class="invalid-feedback">
+                                    <div *ngIf="f.day.errors.required">กรุณาเลือกวัน</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>เวลาเริ่มสอบ </label>
+                            <div class="form-group">
+                                <select class="form-control" formControlName="timeStart" (change)="checkTime()" id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }" disabled>
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of pickTimeStart">{{item}}</option>
+              </select>
+                                <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
+                                    <div *ngIf="f.timeStart.errors.required">กรุณาเลือกเวลาเริ่มสอบ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>เวลาที่สิ้นสุดสอบ </label>
+                                <select class="form-control" formControlName="timeEnd" id="timeEnd" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled>
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of pickTimeEnd">{{item}}</option>
+              </select>
+                                <div *ngIf="submitted && f.timeEnd.errors" class="invalid-feedback">
+                                    <div *ngIf="f.timeEnd.errors.required">กรุณาเลือกเวลาที่สิ้นสุดสอบ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()" id=closeModalInsert>ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ModalEdit -->
+<div class="modal fade" data-backdrop="false" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">เพิ่มการสอบ</h5>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="form" (ngSubmit)="onEdit()">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>รหัสวิชา</label>
+                                <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>ชื่อวิชา </label>
+                                <input type="text" formControlName="nameSubject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>ชื่ออาจารย์ </label>
+                                <input type="text" formControlName="nameTeacher" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>คณะ </label>
+                                    <input type="text" formControlName="faculty" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>วัน </label>
+                                <select class="form-control" formControlName="day" [ngClass]="{ 'is-invalid': submitted && f.day.errors }" (change)="checkDay()">
+                <option>จันทร์</option>
+                <option>อังคาร</option>
+                <option>พุธ</option>
+                <option>พฤหัสบดี</option>
+                <option>ศุกร์</option>
+                <option>เสาร์</option>
+                <option>อาทิตย์</option>
+              </select>
+                                <div *ngIf="submitted && f.day.errors" class="invalid-feedback">
+                                    <div *ngIf="f.day.errors.required">กรุณาเลือกวัน</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>เวลาเริ่มสอบ </label>
+                            <div class="form-group">
+                                <select class="form-control" formControlName="timeStart" (change)="checkTime()" id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }">
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of pickTimeStart">{{item}}</option>
+              </select>
+                                <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
+                                    <div *ngIf="f.timeStart.errors.required">กรุณาเลือกเวลาเริ่มสอบ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>เวลาที่สิ้นสุดสอบ </label>
+                                <select class="form-control" formControlName="timeEnd" id="timeEnd" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of pickTimeEnd">{{item}}</option>
+              </select>
+                                <div *ngIf="submitted && f.timeEnd.errors" class="invalid-feedback">
+                                    <div *ngIf="f.timeEnd.errors.required">กรุณาเลือกเวลาที่สิ้นสุดสอบ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>คนคุมสอบ </label>
+                                <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="examerList" formControlName="nameExamer" [ngClass]="{ 'is-invalid': submitted && f.nameExamer.errors }" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="submitted && f.nameExamer.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nameExamer.errors.required">กรุณาเลือกอาจารย์</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>ห้องสอบ </label>
+                                <select class="form-control" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
+                <option disabled selected *ngIf="checkselect">เลือก</option>
+                <option *ngFor="let item of roomList">{{item}}</option>
+              </select>
+                                <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
+                                    <div *ngIf="f.room.errors.required">กรุณาเลือกเวลาที่สิ้นสุดสอบ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()" id=closeModalEdit>ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
