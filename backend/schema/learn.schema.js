@@ -1,4 +1,4 @@
-const moogoose = require('moogoose')
+const moogoose = require('mongoose')
 
 var learnSchema = moogoose.Schema({
     id: String,
@@ -10,9 +10,9 @@ var learnSchema = moogoose.Schema({
     year: String,
     term: String,
     room: String,
-    day: rString,
+    day: String,
     timeStart: String,
-    timeEnd: rString,
+    timeEnd: String,
     sit: String,
     student: Array
 })
