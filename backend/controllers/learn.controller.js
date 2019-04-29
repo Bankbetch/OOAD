@@ -1,26 +1,5 @@
 const Learn = require('../schema/learn.schema');
 
-exports.excel = (req, res) => {
-    req.body.forEach(function (item) {
-        Learn.findOne({ username: item.username }, (err, result) => {
-            if (result == null) {
-                newa.push(item)
-                status = true
-            } else {
-                status = false
-            }
-        })
-    });
-}
-
-exports.createExcel = (req, res) => {
-    if (status == true) {
-        const newUserExcel = new userModel()
-        newUserExcel = newa
-        newUserExcel.save()
-    }
-}
-
 exports.create = (req, res) => {
     Learn.findOne({ id: req.body.id }, (_, result) => {
         if (result === null) {

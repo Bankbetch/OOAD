@@ -354,12 +354,12 @@ export class ManageExamComponent implements OnInit {
           }
         }
       }
-      const newArray = this.timeStartO.filter((elem, i, arr) => {
-        if (arr.indexOf(elem) === i) {
-          return elem
-        }
-      })
-      this.timeStartO = newArray
+      // const newArray = this.timeStartO.filter((elem, i, arr) => {
+      //   if (arr.indexOf(elem) === i) {
+      //     return elem
+      //   }
+      // })
+      this.timeStartO 
       this.hideEditStartInput = false
       this.hideEditStart = true
       // if (this.timeStartO !== []) {
@@ -665,7 +665,7 @@ export class ManageExamComponent implements OnInit {
     }
 
 
-    console.log(this.countTime+ " " +this.countTimeEnd)
+    console.log(this.countTime + " " + this.countTimeEnd)
   }
 
 
@@ -1037,10 +1037,10 @@ export class ManageExamComponent implements OnInit {
     this.hideEditStartInput = true
     this.hideEditRoominput = true
     this.hideEditEndInput = true
-    localStorage.setItem('idTest',id)
-    localStorage.setItem('nameTest',name)
-    localStorage.setItem('nameTeacherTest',this.nameTeacher)
-    localStorage.setItem('facultyTest',faculty)
+    localStorage.setItem('idTest', id)
+    localStorage.setItem('nameTest', name)
+    localStorage.setItem('nameTeacherTest', this.nameTeacher)
+    localStorage.setItem('facultyTest', faculty)
     var nameSJ
 
     if (this.put !== []) {
@@ -1155,6 +1155,7 @@ export class ManageExamComponent implements OnInit {
     const md5 = new Md5;
 
     for (var i = 0; i < array.length; i++) {
+      console.log(this.arrayId)
       var auth = md5.appendStr(this.arrayId[i]).end();
       total = {
         name: this.arrayName[i], surname: this.arraySurname[i], username:

@@ -1,6 +1,6 @@
-const moogoose = require('moogoose')
+const mongoose = require('mongoose')
 
-var excameSchema = moogoose.Schema({
+var examSchema = mongoose.Schema({
     id: String,
     name: String,
     teacher: Array,
@@ -11,6 +11,7 @@ var excameSchema = moogoose.Schema({
     amongNisit: String,
     listNisit: Array,
     statusExam: String,
-    examer: Array
+    examer: Array,
+    room:String
 })
-module.exports = moogoose.model('exams', excameSchema)
+module.exports = mongoose.model('exams', examSchema)

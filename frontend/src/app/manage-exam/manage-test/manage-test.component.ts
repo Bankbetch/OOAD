@@ -83,7 +83,7 @@ export class ManageTestComponent implements OnInit {
   }
   ArrayExamer = []
   onGetTable() {
-    this.http.get<any>('http://localhost:4001/getExam').subscribe(result => {
+    this.http.get<any>('http://localhost:4001/exam').subscribe(result => {
       this.data = result.data
       for (let item of result.data) {
         this.ArrayExamer = item.examer
@@ -111,10 +111,10 @@ export class ManageTestComponent implements OnInit {
   }
   checkDataUser = false
   onGetBuildAndUsers() {
-    axios.get('http://localhost:4001/getroom').then(res => {
+    axios.get('http://localhost:4001/room').then(res => {
       this.builds = res.data.data
     })
-    this.http.get<any>('http://localhost:4001/getdata').subscribe(res => {
+    this.http.get<any>('http://localhost:4001/user').subscribe(res => {
       this.users = res.data
       var count = 1
       var arr = []
@@ -160,7 +160,7 @@ export class ManageTestComponent implements OnInit {
   }
   checkselect = true
   getSubject() {
-    axios.get('http://localhost:4001/subjectlearn').then(res => {
+    axios.get('http://localhost:4001/learns').then(res => {
       this.subjectOpen = res.data.data
       this.checkData = true;
       this.showSpinner()
@@ -184,7 +184,7 @@ export class ManageTestComponent implements OnInit {
       listNisit: this.listNisit,
       statusExam: "เปิดการสอบ"
     }
-    axios.post('http://localhost:4001/insertExam', data).then(res => {
+    axios.post('http://localhost:4001/exam', data).then(res => {
       if (res.data.status) {
         alert("เพิ่มข้อมูลเรียบร้อย")
         document.getElementById('closeModalInsert').click()
@@ -280,7 +280,7 @@ export class ManageTestComponent implements OnInit {
       room: this.form.value.room
     }
     console.log(data)
-    axios.patch('http://localhost:4001/editExam', data).then(res => {
+    axios.patch('http://localhost:4001/examUpdate', data).then(res => {
       if (res.data.status) {
         alert("แก้ไขข้อมูลเรียบร้อย")
         document.getElementById('closeModalEdit').click()
@@ -336,7 +336,7 @@ export class ManageTestComponent implements OnInit {
           id: idCheck,
           statusExam: "ยกเลิกการสอบ"
         }
-        axios.patch('http://localhost:4001/editStatusExam', data).then(res => {
+        axios.patch('http://localhost:4001/examUpdate/status', data).then(res => {
           if (res.data.status) {
             alert("แก้ไขข้อมูลเรียบร้อย")
             this.onGetTable()
@@ -354,7 +354,7 @@ export class ManageTestComponent implements OnInit {
       id: event,
       statusExam: "เปิดการสอบ"
     }
-    axios.patch('http://localhost:4001/editStatusExam', data).then(res => {
+    axios.patch('http://localhost:4001/examUpdate/status', data).then(res => {
       if (res.data.status) {
         alert("แก้ไขข้อมูลเรียบร้อย")
         this.onGetTable()

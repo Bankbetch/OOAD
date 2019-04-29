@@ -1,7 +1,7 @@
 const Subject = require('../schema/subject.schema');
 
 exports.findAll = (req, res) => {
-    Subject.find({}, function(err, obj) {
+    Subject.find({}, function (err, obj) {
         if (!err) {
             res.json({ data: obj })
         }
@@ -39,10 +39,9 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     var idRemove = []
-    req.body.forEach(function(item) {
+    req.body.forEach(function (item) {
         idRemove.push(item)
     })
     const query = { _id: { $in: idRemove } }
-    Subject.findByIdAndRemove(query).then((err, result) => { res.json({ data: result }) })
-
+    Subject.deleteMany(query).then((err, result) => { res.json({ data: result }) })
 }

@@ -39,8 +39,11 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
+    var idRemove = []
     req.body.forEach(function (item) {
-        Room.findByIdAndRemove(item).then((obj) => { res.json({ data: obj }) })
+        idRemove.push(item)
     })
+    const query = { _id: { $in: idRemove } }
+    Room.deleteMany(query).then((obj) => { res.json({ data: obj }) })
 }
 
