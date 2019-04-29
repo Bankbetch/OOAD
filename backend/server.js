@@ -19,16 +19,16 @@ mongoose.connect(dbConfig.url, {
   }
 })
 
-mongoose.connection.on('connected',function(){
-    console.log('Mongoose defualt connect open')
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose defualt connect open')
 })
 
-mongoose.connection.on('error',function(err){
-    console.log('Mongoose defualt connection error: ' + err)
+mongoose.connection.on('error', function (err) {
+  console.log('Mongoose defualt connection error: ' + err)
 })
 
-mongoose.connection.on('disconnected',function(){
-    console.log('Mongoose defualt connect disconnected')
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose defualt connect disconnected')
 })
 require('./routes/login.routes')(app);
 require('./routes/user.routes')(app);
@@ -36,8 +36,10 @@ require('./routes/build.routes')(app);
 require('./routes/room.routes')(app);
 require('./routes/subject.routes')(app);
 require('./routes/learn.routes')(app);
+require('./routes/exam.routes')(app)
+require('./routes/excel.routes')(app)
 
 app.listen(4001, () => {
-    console.log("Server is listening on port 4001");
+  console.log("Server is listening on port 4001");
 });
 

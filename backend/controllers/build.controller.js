@@ -30,8 +30,11 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
+    var idRemove = []
     req.body.forEach(function (item) {
-        Build.findByIdAndRemove(item).then((obj) => { res.json({ data: obj }) })
+        idRemove.push(item)
     })
+    const query = { _id: { $in: idRemove } }
+    Build.deleteMany(query).then((obj) => { res.json({ data: obj }) })
 }
 

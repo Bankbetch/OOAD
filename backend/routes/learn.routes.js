@@ -9,7 +9,4 @@ module.exports = (app) => {
 
     app.post('/learnsDelete', learn.delete);
 
-    app.post('/userExcel', learn.excel)
-
-    app.post('/userInsertExcel', learn.createExcel)
 }

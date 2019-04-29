@@ -28,20 +28,17 @@ exports.create = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    const dataUpdate = {
-        name: req.body.name,
-        surname: req.body.surname,
-        username: req.body.username,
-        types: req.body.types,
-        email: req.body.email
-    };
-    User.findOneAndUpdate({ username: req.body.username }, { $set: dataUpdate }, () => {
+    console.log(req.body)
+    User.findOneAndUpdate({ username: req.body.username }, { $set: req.body }, () => {
         res.json({ status: true })
     });
 }
 
 exports.delete = (req, res) => {
+    var idRemove = []
     req.body.forEach(function (item) {
-        User.findByIdAndRemove(item).then((obj) => { res.json({ data: obj }) })
+        idRemove.push(item)
     })
+    const query = { _id: { $in: idRemove } }
+    User.deleteMany(query).then((obj) => { res.json({ data: obj }) })
 }

@@ -162,21 +162,10 @@ export class SettingUserComponent implements OnInit {
     var getArr = []
     arr = this.selectedItems
     for (let item of arr) {
-      // if (count === 0) {
-      //   if (item.item_id !== 1 && item.item_id !== 2 && item.item_id !== 3 && item.item_id !== 4) {
-      //     getArr.push(item)
-      //   } else {
-      //     getArr.push(item.item_text)
-      //   }
-      // } else {
-      //   getArr.push(item.item_text)
-      // }
-      // count++;
+      count++;
       getArr.push(item.item_text)
 
     }
-    // var r = confirm("กดokเพื่อแกไขข้อมูล");
-    // if (r == true) {
     var auth = this.registerForm.value.password;
     var obj = {
       name: this.registerForm.value.firstName, surname: this.registerForm.value.lastName, password: auth, username: this.registerForm.value.username,
@@ -185,12 +174,7 @@ export class SettingUserComponent implements OnInit {
 
     console.log(obj)
 
-    this.http.patch<any>('http://localhost:4001/userUpdate/', obj).subscribe((res) => {
-
-      this.allowAlertEdit = true
-      setTimeout(() => {
-        this.allowAlertEdit = false
-      }, 5000);
+    this.http.patch<any>('http://localhost:4001/userUpdate', obj).subscribe((res) => {
       document.getElementById("closeModaledit").click();
       this.onGetTable()
     })
@@ -490,7 +474,7 @@ export class SettingUserComponent implements OnInit {
   }
 
   onClickAdmin() {
-    if (this.checkG === "เจ้าหน้าที่" || this.checkG ===  "เจ้าหน้าที่,คนคุมสอบ") {
+    if (this.checkG === "เจ้าหน้าที่" || this.checkG === "เจ้าหน้าที่,คนคุมสอบ") {
       this.router.navigate(["/เจ้าหน้าที่/จัดการผู้ใช้งาน"])
 
     } else {
