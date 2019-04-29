@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { OrderPipe } from 'ngx-order-pipe';
 import * as XLSX from 'xlsx';
 import { Md5 } from 'ts-md5/dist/md5';
+
 @Component({
   selector: 'app-add-subject',
   templateUrl: './add-subject.component.html',
