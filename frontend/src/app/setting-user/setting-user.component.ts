@@ -140,7 +140,7 @@ export class SettingUserComponent implements OnInit {
         this.allowAlertInsertFail = true
         setTimeout(() => {
           this.allowAlertInsertFail = false
-        }, 5000);
+        }, 3000);
       }
       this.onGetTable()
       this.OnClear()
