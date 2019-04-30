@@ -1,0 +1,2 @@
+# OOAD
+npm i
