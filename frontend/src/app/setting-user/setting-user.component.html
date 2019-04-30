@@ -128,6 +128,10 @@
                             เพิ่มข้อมูลเรียบร้อย
                         </div>
 
+                        <div class="alert alert-warning text-center" role="alert" *ngIf="allowAlertInsertFail">
+                            มีชื่อผู้ใช้อยู่ในระบบแล้ว
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" id="closeModal" class="btn btn-secondary"
                                 data-dismiss="modal">ยกเลิก</button>
