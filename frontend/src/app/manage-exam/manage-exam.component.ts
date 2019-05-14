@@ -9,7 +9,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 import * as XLSX from 'xlsx';
 import { Md5 } from 'ts-md5/dist/md5';
 import { ExcelService } from './excel.service';
-
+var md52 = require('md5');
 
 @Component({
   selector: 'app-manage-exam',
@@ -1153,10 +1153,10 @@ export class ManageExamComponent implements OnInit {
     }
     var array = this.arrayTest
     var total
-
-    if(this.arrayId.length == this.arrayTest.length){
+    
+    if(this.arrayId.length === this.arrayTest.length){
       for (var i = 0; i < array.length; i++) {
-        var auth = md5.appendStr(this.arrayId[i]);
+        var auth = md52(this.arrayId[i]);
         console.log(auth)
         total = {
           name: this.arrayName[i], surname: this.arraySurname[i], username:
