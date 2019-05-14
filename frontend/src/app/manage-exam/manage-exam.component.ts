@@ -359,7 +359,7 @@ export class ManageExamComponent implements OnInit {
       //     return elem
       //   }
       // })
-      this.timeStartO 
+      this.timeStartO
       this.hideEditStartInput = false
       this.hideEditStart = true
       // if (this.timeStartO !== []) {
@@ -1143,26 +1143,27 @@ export class ManageExamComponent implements OnInit {
     fileReader.readAsArrayBuffer(this.file);
   }
   setDataExcel() {
+    var pas
+    const md5 = new Md5;
     for (let item of this.arrayTest) {
       var splitted = item.ชื่อ.split(" ");
       this.arrayName.push(splitted[1])
       this.arraySurname.push(splitted[2])
-      this.arrayId.push(item.รหัส)
+      this.arrayId.push(String(item.รหัส))
     }
     var array = this.arrayTest
-    console.log(array)
     var total
-    const md5 = new Md5;
 
-    for (var i = 0; i < array.length; i++) {
-      console.log(this.arrayId)
-      var auth = md5.appendStr(this.arrayId[i]).end();
-      total = {
-        name: this.arrayName[i], surname: this.arraySurname[i], username:
-          this.arrayId[i], password: auth, types: "นิสิต", email: this.arrayId[i] + "@go.buu.ac.th"
+    if(this.arrayId.length == this.arrayTest.length){
+      for (var i = 0; i < array.length; i++) {
+        var auth = md5.appendStr(this.arrayId[i]);
+        console.log(auth)
+        total = {
+          name: this.arrayName[i], surname: this.arraySurname[i], username:
+            this.arrayId[i], password: auth, types: "นิสิต", email: this.arrayId[i] + "@go.buu.ac.th"
+        }
+        this.ArrayStudent.push(total)
       }
-
-      this.ArrayStudent.push(total)
     }
     this.disableBuild = false
     this.disableBtnExcel = true

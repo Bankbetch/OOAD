@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of data | filterPipe :{build:searchString,room:searchString,sit:searchString,status:searchString} | paginate: { itemsPerPage: dataOtShow, currentPage: p }; let i = index">
+                <tr *ngFor="let item of data | filterPipe :{name:searchString,amongRoom:searchString} | paginate: { itemsPerPage: dataOtShow, currentPage: p }; let i = index">
                     <td> <label><input type="checkbox" value="{{item._id}}"
                                 (change)="onSetData($event,item._id,i+1)"></label>
                     </td>
