@@ -133,17 +133,15 @@ export class SettingUserComponent implements OnInit {
     this.http.post<any>('http://localhost:4001/user', obj).subscribe((res) => {
       if (res.status == true) {
         this.allowAlertInsert = true
-        setTimeout(() => {
-          this.allowAlertInsert = false
-        }, 5000);
+        this.onGetTable()
+        this.OnClear()
       } else {
         this.allowAlertInsertFail = true
         setTimeout(() => {
           this.allowAlertInsertFail = false
         }, 3000);
       }
-      this.onGetTable()
-      this.OnClear()
+
     })
 
   }

@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                             <label>ห้อง </label>
-                            <input type="text" class="form-control" placeholder="Ex.if-5t-02" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
+                            <input type="text" class="form-control"  formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
                             <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
                                 <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
                             </div>
@@ -50,19 +50,19 @@
                         </div>
                         <div class="form-group">
                             <label>จำนวนเก้าอี้ </label>
-                            <input type="text" class="form-control" placeholder="Ex.60" formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                            <input type="text" class="form-control"  formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
                             <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
                                 <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Status </label>
-                            <input type="text" class="form-control" placeholder="Ex.ว่าง" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" (keypress)="isNotNumber($event)" />
+                            <input type="text" class="form-control"  formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" (keypress)="isNotNumber($event)" />
                             <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
                                 <div *ngIf="f.status.errors.required">กรุณากรอกข้อมูล Status</div>
                             </div>
-                        </div>
+                        </div> -->
                     </form>
                     <div class="alert alert-warning text-center" role="alert" *ngIf="allowAlertAdd">
                         มีข้อมูลอยู่ในระบบแล้ว
@@ -113,13 +113,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Status </label>
                             <input type="text" class="form-control" placeholder="Ex.ว่าง" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" (keypress)="isNotNumber($event)" />
                             <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
                                 <div *ngIf="f.status.errors.required">กรุณากรอกข้อมูล Status</div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">บันทึก</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalEdit" (click)="onClear()">ยกเลิก</button>
@@ -143,7 +143,7 @@
                     <th scope="col">ตึก</th>
                     <th scope="col">ห้อง</th>
                     <th scope="col">จำนวนเก้าอี้</th>
-                    <th scope="col">Status</th>
+                    <!-- <th scope="col">Status</th> -->
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -155,7 +155,7 @@
                     <td>{{item.build}}</td>
                     <td>{{item.room}}</td>
                     <td>{{item.sit}}</td>
-                    <td>{{item.status}}</td>
+                    <!-- <td>{{item.status}}</td> -->
                     <td>
                         <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3" data-dismiss="modal" (click)="onClickEdit(item._id,item.build,item.room,item.sit,item.status,
                 item.mon,
@@ -173,3 +173,7 @@
         <pagination-controls (pageChange)="p = $event" class="text-center"></pagination-controls>
     </div>
 </div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
