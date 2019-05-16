@@ -101,7 +101,8 @@
             item.timeEnd,
             item.day,
             item.room,
-            item.amongNisit
+            item.amongNisit,
+            item.examer
             )">
                             <i class="fa fa-edit"></i></button>&nbsp;
                         <!-- <button class="btn btn-info" (click)="openExam(item.id)"><i class="fa fa-book"></i>นัดสอบใหม่</button> -->
@@ -322,7 +323,9 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>เวลาที่สิ้นสุดสอบ </label>
-                                <select class="form-control" formControlName="timeEnd" id="timeEnd"
+                                <input type="text" formControlName="timeEnd" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled  *ngIf = "hideTimeBtn"/>
+                                <select class="form-control" formControlName="timeEnd" id="timeEnd" *ngIf = "hideTimeSelect"
                                     [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of pickTimeEnd">{{item}}</option>
@@ -338,12 +341,12 @@
                             <div class="form-group">
                                 <label>คนคุมสอบ </label>
                                 <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="examerList"
-                                    formControlName="nameExamer"
+                                    formControlName="nameExamer" [(ngModel)]="selectedItems"
                                     [ngClass]="{ 'is-invalid': submitted && f.nameExamer.errors }"
                                     [settings]="dropdownSettings" (onSelect)="onItemSelect($event)">
                                 </ng-multiselect-dropdown>
                                 <div *ngIf="submitted && f.nameExamer.errors" class="invalid-feedback">
-                                    <div *ngIf="f.nameExamer.errors.required">กรุณาเลือกอาจารย์</div>
+                                    <div *ngIf="f.nameExamer.errors.required">คนคุมสอบ</div>
                                 </div>
                             </div>
                         </div>
