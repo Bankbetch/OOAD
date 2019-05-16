@@ -43,6 +43,8 @@ export class ManageTestComponent implements OnInit {
   examerList = []
   amongNisit
   listNisit = []
+  hideTimeBtn = true
+  hideTimeSelect = false
   ngOnInit() {
     this.check(), this.onGetTable(), this.onGetBuildAndUsers(), this.showSpinner(), this.getSubject()
     this.form = this.formBuilder.group({
@@ -169,9 +171,9 @@ export class ManageTestComponent implements OnInit {
 
   insertExam() {
     this.submitted = true
-    // if (this.form.invalid) {
-    //   return;
-    // }
+    if (this.form.invalid) {
+      return;
+    }
     var data = {
       id: this.form.value.id,
       nameSubject: this.form.value.nameSubject,
@@ -204,6 +206,8 @@ export class ManageTestComponent implements OnInit {
     this.form.get('day').setValue("")
     this.form.get('room').setValue("")
     this.submitted = false
+    this.hideTimeBtn = true
+    this.hideTimeSelect = false
     var timeStartElement = <HTMLInputElement>document.getElementById('timeStart');
     var timeEndElement = <HTMLInputElement>document.getElementById('timeEnd');
     timeStartElement.setAttribute("disabled", 'disabled');
@@ -239,6 +243,9 @@ export class ManageTestComponent implements OnInit {
   }
 
   checkTime() {
+    this.hideTimeBtn = false
+    this.hideTimeSelect = true
+    this.form.get('timeEnd').setValue("")
     this.pickTimeEnd = []
     var timeEndElement = <HTMLInputElement>document.getElementById('timeEnd');
     timeEndElement.removeAttribute("disabled")
@@ -261,10 +268,10 @@ export class ManageTestComponent implements OnInit {
   }
 
   onEdit() {
-    // this.submitted = true
-    // if (this.form.invalid) {
-    //   return;
-    // }
+    this.submitted = true
+    if (this.form.invalid) {
+      return;
+    }
     var arr = []
     var getArr = []
     arr = this.form.value.nameExamer
@@ -292,7 +299,7 @@ export class ManageTestComponent implements OnInit {
   selectedItems = []
   dropdownSettings = {};
   roomList = []
-  tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, room: string, amongNisit: string) {
+  tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, room: string, amongNisit: string,nameExamer:string) {
     this.form.get('id').setValue(id);
     this.form.get('nameSubject').setValue(name);
     this.form.get('nameTeacher').setValue(teacher);
@@ -301,6 +308,8 @@ export class ManageTestComponent implements OnInit {
     this.form.get('timeStart').setValue(timeStart)
     this.form.get('timeEnd').setValue(timeEnd)
     this.form.get('room').setValue(room)
+    this.form.get('nameExamer').setValue(nameExamer)
+    console.log(this.form.get('nameExamer').value)
     if (faculty === "วิทยาการสารสนเทศ") {
       for (let item of this.builds) {
         var buildsitParse = parseInt(item.sit)
@@ -310,7 +319,12 @@ export class ManageTestComponent implements OnInit {
         }
       }
     }
+     var num1 = 1
+    var  num2 = 2
+      if (nameExamer.length >= 1) {
+        this.selectedItems = [{ item_id: num1, item_text: nameExamer[0] }]
 
+    }
   }
   onItemSelect(items: any) {
   }
