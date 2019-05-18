@@ -38,7 +38,6 @@ export class RoomComponent implements OnInit {
         build: ['', Validators.required],
         room: ['', Validators.required],
         sit: ['', Validators.required],
-        status: ['', Validators.required]
       })
   }
   check() {
@@ -67,7 +66,6 @@ export class RoomComponent implements OnInit {
     this.manageBuild.get('build').setValue("");
     this.manageBuild.get('room').setValue("");
     this.manageBuild.get('sit').setValue("");
-    this.manageBuild.get('status').setValue("");
     this.disableSBuild = true
     this.allowAlertAdd = false
     this.dataDelete = []
@@ -131,7 +129,7 @@ export class RoomComponent implements OnInit {
       "18.00",
       "19.00",
       "20.00"]
-    var obj = { build: this.manageBuild.value.build, room: this.manageBuild.value.room, sit: this.manageBuild.value.sit, status: this.manageBuild.value.status, time: time }
+    var obj = { build: this.manageBuild.value.build, room: this.manageBuild.value.room, sit: this.manageBuild.value.sit, time: time }
     this.http.post<any>('http://localhost:4001/room', obj).subscribe((res) => {
       if (res.status === true) {
         document.getElementById("closeModalInsert").click();
@@ -187,11 +185,10 @@ export class RoomComponent implements OnInit {
   saterday = []
   sunday = []
   build = ""
-  onClickEdit(_id: String, build: string, room: string, sit: string, status: string, m, t, w, th, f, s, su) {
+  onClickEdit(_id: String, build: string, room: string, sit: string, m, t, w, th, f, s, su) {
     this.manageBuild.get('build').setValue(build);
     this.manageBuild.get('room').setValue(room);
     this.manageBuild.get('sit').setValue(sit)
-    this.manageBuild.get('status').setValue(status)
     this.monday = m
     this.tuesday = t
     this.wednesday = w
@@ -213,7 +210,7 @@ export class RoomComponent implements OnInit {
     }
 
 
-    var obj = { _id: this._id, build: this.manageBuild.value.build, room: this.manageBuild.value.room, sit: this.manageBuild.value.sit, status: this.manageBuild.value.status, mon: this.monday, tue: this.tuesday, wed: this.wednesday, thu: this.thursday, fri: this.friday, sat: this.saterday, sun: this.sunday }
+    var obj = { _id: this._id, build: this.manageBuild.value.build, room: this.manageBuild.value.room, sit: this.manageBuild.value.sit, mon: this.monday, tue: this.tuesday, wed: this.wednesday, thu: this.thursday, fri: this.friday, sat: this.saterday, sun: this.sunday }
     console.log(this.objBuild)
     console.log(this.objBuildBefore)
     var oo = [this.objBuild, this.objBuildBefore]
@@ -263,4 +260,12 @@ export class RoomComponent implements OnInit {
     }
     this.disableSBuild = false
   }
+
+  notText(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31
+      && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }   
 }
