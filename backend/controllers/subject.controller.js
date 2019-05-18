@@ -32,7 +32,7 @@ exports.create = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    Subject.updateOnefindOneAndUpdate({ _id: req.body._id }, { $set: req.body }, () => {
+    Subject.findOneAndUpdate({ _id: req.body._id }, { $set: req.body }, () => {
         res.json({ status: true })
     });
 }

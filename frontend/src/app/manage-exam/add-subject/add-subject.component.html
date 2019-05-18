@@ -69,7 +69,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>รหัสวิชา</label>
-                                                    <input class="form-control" formControlName="id" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                                    <input class="form-control" formControlName="id" (keypress)="notText($event)" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
                                                     <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
                                                         <div *ngIf="f.id.errors.required">กรุณากรอกรหัสวิชา</div>
                                                     </div>
@@ -80,7 +80,7 @@
                                                     <label>ชื่อวิชา </label>
                                                     <input class="form-control" formControlName="nameSubject" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
                                                     <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.nameSubject.errors.required">Subกรุณากรอกชื่อวิชา
+                                                        <div *ngIf="f.nameSubject.errors.required">กรุณากรอกชื่อวิชา
                                                         </div>
                                                     </div>
                                                 </div>
@@ -135,7 +135,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>รหัสวิชา</label>
-                                                    <input class="form-control" formControlName="id" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                                    <input class="form-control" formControlName="id" (keypress)="notText($event)" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
                                                     <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
                                                         <div *ngIf="f.id.errors.required">กรุณากรอกรหัสวิชา</div>
                                                     </div>
