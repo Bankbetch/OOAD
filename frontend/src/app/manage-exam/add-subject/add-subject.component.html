@@ -78,7 +78,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>ชื่อวิชา </label>
-                                                    <input class="form-control" formControlName="nameSubject" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                                    <input class="form-control" formControlName="nameSubject" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
                                                     <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
                                                         <div *ngIf="f.nameSubject.errors.required">กรุณากรอกชื่อวิชา
                                                         </div>
@@ -144,7 +144,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>ชื่อวิชา </label>
-                                                    <input class="form-control" formControlName="nameSubject" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                                    <input class="form-control" formControlName="nameSubject"  [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
                                                     <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
                                                         <div *ngIf="f.nameSubject.errors.required">Subกรุณากรอกชื่อวิชา
                                                         </div>

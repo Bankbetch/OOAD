@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label>จำนวนเก้าอี้ </label>
-                            <input type="text" class="form-control"  formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                            <input type="text" class="form-control" (keypress)=" notText($event)" formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
                             <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
                                 <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
                             </div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="form-group">
                             <label>ห้อง </label>
-                            <input type="text" class="form-control" placeholder="Ex.if-5t-02" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
+                            <input type="text" class="form-control" placeholder="Ex.if-5t-02"  formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
                             <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
                                 <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
                             </div>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="form-group">
                             <label>จำนวนเก้าอี้ </label>
-                            <input type="text" class="form-control" placeholder="Ex.60" formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                            <input type="text" class="form-control" placeholder="Ex.60" (keypress)=" notText($event)"  formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
                             <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
                                 <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
                             </div>
