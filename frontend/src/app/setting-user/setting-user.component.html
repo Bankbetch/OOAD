@@ -3,8 +3,7 @@
     <h1 class="text-secondary text-center">จัดการผู้ใช้งาน</h1>
 
     <!-- Modal เพิ่มผู้ใช้ -->
-    <div class="modal fade" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -17,9 +16,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-3 col-form-label">ชื่อ</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="firstName" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-                                            (keypress)="isNotNumber($event)" />
+                                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" (keypress)="isNotNumber($event)" />
                                         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                                             <div *ngIf="f.firstName.errors.required">
                                                 กรุณากรอกชื่อ
@@ -30,9 +27,7 @@
                                 <div class="form-group row">
                                     <label for="surname" class="col-sm-3 col-form-label">นามสกุล</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="lastName" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-                                            (keypress)="isNotNumber($event)" />
+                                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" (keypress)="isNotNumber($event)" />
                                         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
                                             <div *ngIf="f.lastName.errors.required">
                                                 กรุณากรอกนามสกุล
@@ -43,9 +38,7 @@
                                 <div class="form-group row">
                                     <label for="username" class="col-sm-3 col-form-label">ชื่อผู้ใช้</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="username" class="form-control"
-                                            (keypress)="isKeypressUsername($event)" maxlength="20"
-                                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                                        <input type="text" formControlName="username" class="form-control" (keypress)="isKeypressUsername($event)" maxlength="20" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                                         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                                             <div *ngIf="f.username.errors.required">กรุณากรอกชื่อผู้ใช้</div>
                                         </div>
@@ -54,8 +47,7 @@
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-3 col-form-label">รหัสผ่าน</label>
                                     <div class="col-sm-9">
-                                        <input type="password" formControlName="password" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                                             <div *ngIf="f.password.errors.required">กรุณากรอกรหัสผ่าน</div>
                                             <div *ngIf="f.password.errors.minlength">
@@ -67,8 +59,7 @@
                                 <div class="form-group row">
                                     <label for="repassword" class="col-sm-3 col-form-label">ยืนยันรหัสผ่าน</label>
                                     <div class="col-sm-9">
-                                        <input type="password" formControlName="confirmPassword" class="form-control"
-                                            [ngClass]="{
+                                        <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{
                       'is-invalid': submitted && f.confirmPassword.errors
                     }" />
                                         <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
@@ -84,19 +75,14 @@
                                 <div class="form-group row">
                                     <label for="type" class="col-sm-3 col-form-label">สถานะ</label>
                                     <div class="col-sm-7">
-                                        <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="dropdownList"
-                                            formControlName="type"
-                                            [ngClass]="{ 'is-invalid': submitted && f.type.errors }"
-                                            [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
-                                            (onSelectAll)="onSelectAll($event)">
+                                        <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="dropdownList" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                                         </ng-multiselect-dropdown>
                                         <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
                                             <div *ngIf="f.type.errors.required">กรุณาเลือกสถานะ</div>
                                         </div>
 
 
-                                        <input type="text" formControlName="checkType" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.checkType.errors }" hidden />
+                                        <input type="text" formControlName="checkType" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.checkType.errors }" hidden />
                                         <div *ngIf="submitted && f.checkType.errors" class="invalid-feedback">
                                             <div *ngIf="f.checkType.errors.required">กรุณาเลือกสถานะ</div>
                                         </div>
@@ -111,8 +97,7 @@
                                 <div class="form-group row">
                                     <label for="repassword" class="col-sm-3 col-form-label">อีเมล์</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="email" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                             <div *ngIf="f.email.errors.required">กรุณากรอกอีเมล์</div>
                                             <div *ngIf="f.email.errors.email">
@@ -133,8 +118,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" id="closeModal" class="btn btn-secondary"
-                                data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" id="closeModal" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                             <button type="submit" class="btn btn-primary">บันทึก</button>
                         </div>
                     </form>
@@ -144,8 +128,7 @@
     </div>
 
     <!-- Modal แก้ไขผู้ใช้-->
-    <div class="modal fade" data-backdrop="false" id="modalEdit" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" data-backdrop="false" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -159,9 +142,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-3 col-form-label">ชื่อ</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="firstName" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-                                            (keypress)="isNotNumber($event)" />
+                                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" (keypress)="isNotNumber($event)" />
                                         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                                             <div *ngIf="f.firstName.errors.required">
                                                 กรุณากรอกชื่อ
@@ -172,9 +153,7 @@
                                 <div class="form-group row">
                                     <label for="surname" class="col-sm-3 col-form-label">นามสกุล</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="lastName" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-                                            (keypress)="isNotNumber($event)" />
+                                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" (keypress)="isNotNumber($event)" />
                                         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
                                             <div *ngIf="f.lastName.errors.required">
                                                 กรุณากรอกนามสกุล
@@ -185,9 +164,7 @@
                                 <div class="form-group row">
                                     <label for="username" class="col-sm-3 col-form-label">ชื่อผู้ใช้</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="username" class="form-control"
-                                            (keypress)="isKeypressUsername($event)" maxlength="20" id="ipUsername"
-                                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                                        <input type="text" formControlName="username" class="form-control" (keypress)="isKeypressUsername($event)" maxlength="20" id="ipUsername" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                                         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                                             <div *ngIf="f.username.errors.required"> กรุณากรอกชื่อผู้ใช้ </div>
                                         </div>
@@ -196,18 +173,13 @@
                                 <div class="form-group row">
                                     <label for="type" class="col-sm-3 col-form-label">สถานะ</label>
                                     <div class="col-sm-9">
-                                        <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="dropdownList"
-                                            formControlName="type" [settings]="dropdownSettings"
-                                            (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
-                                            [(ngModel)]="selectedItems"
-                                            [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                                        <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="dropdownList" formControlName="type" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" [(ngModel)]="selectedItems" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
                                         </ng-multiselect-dropdown>
                                         <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
                                             <div *ngIf="f.type.errors.required"> กรุณาเลือกสถานะ </div>
                                         </div>
 
-                                        <input type="text" formControlName="checkType" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.checkType.errors }" hidden />
+                                        <input type="text" formControlName="checkType" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.checkType.errors }" hidden />
                                         <div *ngIf="submitted && f.checkType.errors" class="invalid-feedback">
                                             <div *ngIf="f.checkType.errors.required">กรุณาเลือกสถานะ</div>
                                         </div>
@@ -218,8 +190,7 @@
                                 <div class="form-group row">
                                     <label for="repassword" class="col-sm-3 col-form-label">อีเมล์</label>
                                     <div class="col-sm-9">
-                                        <input type="text" formControlName="email" class="form-control"
-                                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                             <div *ngIf="f.email.errors.required"> กรุณากรอกอีเมล์ </div>
                                             <div *ngIf="f.email.errors.email">
@@ -235,8 +206,7 @@
                             แก้ไขอมูลเรียบร้อย
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="closeModaledit"
-                                data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-secondary" id="closeModaledit" data-dismiss="modal">ยกเลิก</button>
                             <button type="submit" class="btn btn-primary" (click)="onClickEdit">บันทึก</button>
                         </div>
                     </form>
@@ -255,8 +225,7 @@
         </div>
         <div class="col-9" *ngIf="disableTable">
             <div class="input-group">
-                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา"
-                    [(ngModel)]="searchString" />
+                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา" [(ngModel)]="searchString" />
                 <div class="input-group-prepend bg-white">
                     <span class="input-group-text border-left-0 rounded-right bg-white">
                         <i class="fa fa-search"></i>
@@ -271,8 +240,7 @@
 
             <!--ModalDelete-->
 
-            <div class="modal fade" data-backdrop="false" id="modalDel" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" data-backdrop="false" id="modalDel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -288,8 +256,7 @@
                             กรุณาเลือกช่องเพื่อลบข้อมูล
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                id=closeModalDelete>ยกเลิก</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id=closeModalDelete>ยกเลิก</button>
                             <button type="button" class="btn btn-primary" (click)="onClickDelete()">ตกลง</button>
                         </div>
                     </div>
@@ -299,8 +266,7 @@
             <!---->
 
             &nbsp;
-            <button class="btn btn-outline-success" data-toggle="modal" data-target="#modalInsert"
-                (click)="OnclearHide()">
+            <button class="btn btn-outline-success" data-toggle="modal" data-target="#modalInsert" (click)="OnclearHide()">
                 <i class="fa fa-user-plus"></i>
             </button>
         </div>

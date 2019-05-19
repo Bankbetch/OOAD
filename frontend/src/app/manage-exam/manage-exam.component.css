@@ -1,6 +1,62 @@
 /* W3.CSS 4.12 November 2018 by Jan Egil and Borge Refsnes */
+
 html {
     box-sizing: border-box
+}
+
+
+/* enable absolute positioning */
+
+.inner-addon {
+    position: relative;
+}
+
+
+/* style icon */
+
+.inner-addon .fa {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+
+/* align icon */
+
+.left-addon .fa {
+    left: 0px;
+}
+
+.right-addon .fa {
+    right: 0px;
+}
+
+
+/* add padding  */
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+.table-fixed tbody {
+    display: block;
+    height: 500px;
+    overflow: auto;
+}
+
+.table-fixed thead,
+.table-fixed tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-fixed thead {
+    width: calc( 100% - 1em);
 }
 
 *,
@@ -9,7 +65,9 @@ html {
     box-sizing: inherit
 }
 
+
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+
 html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
@@ -218,7 +276,9 @@ textarea {
     font: inherit
 }
 
+
 /* End extract */
+
 html,
 body {
     font-family: Verdana, sans-serif;
@@ -691,52 +751,41 @@ a {
     .w3-col.m1 {
         width: 8.33333%
     }
-
     .w3-col.m2 {
         width: 16.66666%
     }
-
     .w3-col.m3,
     .w3-quarter {
         width: 24.99999%
     }
-
     .w3-col.m4,
     .w3-third {
         width: 33.33333%
     }
-
     .w3-col.m5 {
         width: 41.66666%
     }
-
     .w3-col.m6,
     .w3-half {
         width: 49.99999%
     }
-
     .w3-col.m7 {
         width: 58.33333%
     }
-
     .w3-col.m8,
     .w3-twothird {
         width: 66.66666%
     }
-
     .w3-col.m9,
     .w3-threequarter {
         width: 74.99999%
     }
-
     .w3-col.m10 {
         width: 83.33333%
     }
-
     .w3-col.m11 {
         width: 91.66666%
     }
-
     .w3-col.m12 {
         width: 99.99999%
     }
@@ -746,47 +795,36 @@ a {
     .w3-col.l1 {
         width: 8.33333%
     }
-
     .w3-col.l2 {
         width: 16.66666%
     }
-
     .w3-col.l3 {
         width: 24.99999%
     }
-
     .w3-col.l4 {
         width: 33.33333%
     }
-
     .w3-col.l5 {
         width: 41.66666%
     }
-
     .w3-col.l6 {
         width: 49.99999%
     }
-
     .w3-col.l7 {
         width: 58.33333%
     }
-
     .w3-col.l8 {
         width: 66.66666%
     }
-
     .w3-col.l9 {
         width: 74.99999%
     }
-
     .w3-col.l10 {
         width: 83.33333%
     }
-
     .w3-col.l11 {
         width: 91.66666%
     }
-
     .w3-col.l12 {
         width: 99.99999%
     }
@@ -860,31 +898,25 @@ a {
         margin: 0 10px;
         width: auto !important
     }
-
     .w3-modal {
         padding-top: 30px
     }
-
     .w3-dropdown-hover.w3-mobile .w3-dropdown-content,
     .w3-dropdown-click.w3-mobile .w3-dropdown-content {
         position: relative
     }
-
     .w3-hide-small {
         display: none !important
     }
-
     .w3-mobile {
         display: block;
         width: 100% !important
     }
-
     .w3-bar-item.w3-mobile,
     .w3-dropdown-hover.w3-mobile,
     .w3-dropdown-click.w3-mobile {
         text-align: center
     }
-
     .w3-dropdown-hover.w3-mobile,
     .w3-dropdown-hover.w3-mobile .w3-btn,
     .w3-dropdown-hover.w3-mobile .w3-button,
@@ -899,7 +931,6 @@ a {
     .w3-modal-content {
         width: 500px
     }
-
     .w3-modal {
         padding-top: 50px
     }
@@ -909,11 +940,9 @@ a {
     .w3-modal-content {
         width: 900px
     }
-
     .w3-hide-large {
         display: none !important
     }
-
     .w3-sidebar.w3-collapse {
         display: block !important
     }
@@ -929,12 +958,10 @@ a {
     .w3-sidebar.w3-collapse {
         display: none
     }
-
     .w3-main {
         margin-left: 0 !important;
         margin-right: 0 !important
     }
-
     .w3-auto {
         max-width: 100%
     }
@@ -1133,7 +1160,6 @@ a {
     0% {
         transform: rotate(0deg)
     }
-
     100% {
         transform: rotate(359deg)
     }
@@ -1147,11 +1173,9 @@ a {
     0% {
         opacity: 0
     }
-
     50% {
         opacity: 1
     }
-
     100% {
         opacity: 0
     }
@@ -1165,7 +1189,6 @@ a {
     from {
         opacity: 0
     }
-
     to {
         opacity: 1
     }
@@ -1181,7 +1204,6 @@ a {
         top: -300px;
         opacity: 0
     }
-
     to {
         top: 0;
         opacity: 1
@@ -1198,7 +1220,6 @@ a {
         left: -300px;
         opacity: 0
     }
-
     to {
         left: 0;
         opacity: 1
@@ -1215,7 +1236,6 @@ a {
         right: -300px;
         opacity: 0
     }
-
     to {
         right: 0;
         opacity: 1
@@ -1232,7 +1252,6 @@ a {
         bottom: -300px;
         opacity: 0
     }
-
     to {
         bottom: 0;
         opacity: 1
@@ -1247,7 +1266,6 @@ a {
     from {
         transform: scale(0)
     }
-
     to {
         transform: scale(1)
     }
@@ -1482,7 +1500,9 @@ a {
     box-shadow: none !important
 }
 
+
 /* Colors */
+
 .w3-amber,
 .w3-hover-amber:hover {
     color: #000 !important;
@@ -1966,10 +1986,12 @@ a {
 .w3-hover-border-pale-blue:hover {
     border-color: #e7ffff !important
 }
+
 .col-2-2 {
     flex: 0 0 16%;
     max-width: 16%;
 }
+
 .col-2-3 {
     flex: 0 0 8%;
     max-width: 8%;
