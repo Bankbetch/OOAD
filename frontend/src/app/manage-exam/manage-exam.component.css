@@ -4,59 +4,9 @@ html {
     box-sizing: border-box
 }
 
-
-/* enable absolute positioning */
-
-.inner-addon {
-    position: relative;
-}
-
-
-/* style icon */
-
-.inner-addon .fa {
-    position: absolute;
-    padding: 10px;
-    pointer-events: none;
-}
-
-
-/* align icon */
-
-.left-addon .fa {
-    left: 0px;
-}
-
-.right-addon .fa {
-    right: 0px;
-}
-
-
-/* add padding  */
-
-.left-addon input {
-    padding-left: 30px;
-}
-
-.right-addon input {
-    padding-right: 30px;
-}
-
-.table-fixed tbody {
-    display: block;
-    height: 500px;
+.scollbarTable {
+    height: 600px;
     overflow: auto;
-}
-
-.table-fixed thead,
-.table-fixed tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.table-fixed thead {
-    width: calc( 100% - 1em);
 }
 
 *,

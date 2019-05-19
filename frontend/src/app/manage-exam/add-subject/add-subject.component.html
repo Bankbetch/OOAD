@@ -57,69 +57,7 @@
               )">
                             <i class="fa fa-edit"></i> </button>
                     </td>
-                    <div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-md" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form [formGroup]="addIncres" (ngSubmit)="onSubmit()">
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>รหัสวิชา</label>
-                                                    <input class="form-control" formControlName="id" (keypress)="notText($event)" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
-                                                    <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.id.errors.required">กรุณากรอกรหัสวิชา</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>ชื่อวิชา </label>
-                                                    <input class="form-control" formControlName="nameSubject" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
-                                                    <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.nameSubject.errors.required">กรุณากรอกชื่อวิชา
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>คณะ </label>
-                                                    <input class="form-control" formControlName="faculty" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }">
-                                                    <div *ngIf="submitted && f.faculty.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.faculty.errors.required">กรุณากรอกคณะ</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>หน่วยกิต </label>
-                                                    <input class="form-control" type="number" formControlName="unit" maxlength="1" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
-                                                    <div *ngIf="submitted && f.unit.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.unit.errors.required">กรุณากรอกหน่วยกิต</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="alert alert-warning text-center" role="alert" *ngIf="allowAlertAdd">
-                                            มีข้อมูลอยู่ในระบบแล้ว
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success">บันทึก</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseInsert">ยกเลิก</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
                     <!-- ModelEdit -->
@@ -144,7 +82,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>ชื่อวิชา </label>
-                                                    <input class="form-control" formControlName="nameSubject"  [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                                    <input class="form-control" formControlName="nameSubject" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
                                                     <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
                                                         <div *ngIf="f.nameSubject.errors.required">Subกรุณากรอกชื่อวิชา
                                                         </div>
@@ -208,6 +146,71 @@
             </tbody>
         </table>
         <pagination-controls (pageChange)="p = $event" class="text-center"></pagination-controls>
+    </div>
+</div>
+
+<!-- ModalInsert -->
+<div class="modal fade" data-backdrop="false" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addIncres" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>รหัสวิชา</label>
+                                <input class="form-control" formControlName="id" (keypress)="notText($event)" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+                                    <div *ngIf="f.id.errors.required">กรุณากรอกรหัสวิชา</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>ชื่อวิชา </label>
+                                <input class="form-control" formControlName="nameSubject" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nameSubject.errors.required">กรุณากรอกชื่อวิชา
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>คณะ </label>
+                                <input class="form-control" formControlName="faculty" (keypress)="isNotNumber($event)" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }">
+                                <div *ngIf="submitted && f.faculty.errors" class="invalid-feedback">
+                                    <div *ngIf="f.faculty.errors.required">กรุณากรอกคณะ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>หน่วยกิต </label>
+                                <input class="form-control" type="number" formControlName="unit" maxlength="1" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
+                                <div *ngIf="submitted && f.unit.errors" class="invalid-feedback">
+                                    <div *ngIf="f.unit.errors.required">กรุณากรอกหน่วยกิต</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning text-center" role="alert" *ngIf="allowAlertAdd">
+                        มีข้อมูลอยู่ในระบบแล้ว
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseInsert">ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">

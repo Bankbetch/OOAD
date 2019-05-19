@@ -9,7 +9,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 import * as XLSX from 'xlsx';
 import { Md5 } from 'ts-md5/dist/md5';
 import { ExcelService } from './excel.service';
-var md52 = require('md5');
+var md5 = require('md5');
 
 @Component({
   selector: 'app-manage-exam',
@@ -503,20 +503,6 @@ export class ManageExamComponent implements OnInit {
     // this.http.patch<any>('http://localhost:4001/editroom/', objRoom).subscribe((res) => {
     // })
 
-    for (var i = 0; i < this.dataStu.length; i++) {
-    }
-    var ArrayStudent = this.ArrayStudent
-    for (let item of ArrayStudent) {
-      for (var i = 0; i < this.dataStu.length; i++) {
-        if (this.dataStu[i].username == item.username) {
-          ArrayStudent.slice(i, 1)
-        }
-      }
-    }
-
-    this.http.post<any>('http://localhost:4001/userInsertExcel', this.ArrayStudent).subscribe((res) => {
-    })
-
     this.http.patch<any>('http://localhost:4001/learnsUpdate/', obj).subscribe((res) => {
       console.log(obj)
       this.allowAlertEdit = true
@@ -543,7 +529,7 @@ export class ManageExamComponent implements OnInit {
   timeStart
   timeEnd
   sit
-  tableStu = []
+  arrayStudentOfSubject = []
   monday = []
   tuesday = []
   wednesday = []
@@ -554,7 +540,7 @@ export class ManageExamComponent implements OnInit {
   timeS: Number
   timeE: Number
   tableClick(id: string, name: string, teacher: string, faculty: string, build: string, unit: string, year: string, term: string,
-    room: string, day: string, timeStart: string, timeEnd: string, sit: string, student, i) {
+    room: string, day: string, timeStart: string, timeEnd: string, sit: string, student) {
     this.addIncres.get('id').setValue(id);
     this.addIncres.get('nameSubject').setValue(name);
     this.addIncres.get('nameTeacher').setValue(teacher);
@@ -582,7 +568,7 @@ export class ManageExamComponent implements OnInit {
     this.timeStart = timeStart
     this.timeEnd = timeEnd
     this.sit = sit
-    this.tableStu = student
+    this.arrayStudentOfSubject = student
     this.disableBtnSave = true
     this.disableBuild = true
     this.arrayStudentExcelPost = []
@@ -600,16 +586,8 @@ export class ManageExamComponent implements OnInit {
     localStorage.setItem('nameTest', name)
     localStorage.setItem('nameTeacherTest', this.nameTeacher)
     localStorage.setItem('facultyTest', faculty)
-    var nameSJ
 
-    if (this.put !== []) {
-      this.put = []
-    }
-    for (let item of this.tableStu) {
-      nameSJ = { username: item.username, name: item.name, surname: item.surname }
-      this.put.push(nameSJ)
-    }
-    // console.log(this.put)
+    console.log(this.arrayStudentOfSubject)
     var inputElement = <HTMLInputElement>document.getElementById('inputStu');
     inputElement.value = null
     this.disableBtnExcel = true
@@ -667,7 +645,7 @@ export class ManageExamComponent implements OnInit {
     }
   }
   arrayBuffer: any;
-  arrayTest: any
+  arrayExcel: any
   file: File;
   arrayName = []
   arraySurname = []
@@ -682,7 +660,7 @@ export class ManageExamComponent implements OnInit {
     this.file = event.target.files[0];
     this.disableBtnExcel = false
   }
-  UploadExcel() {
+  uploadExcel() {
     let fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.arrayBuffer = fileReader.result;
@@ -693,115 +671,124 @@ export class ManageExamComponent implements OnInit {
       var workbook = XLSX.read(bstr, { type: "binary" });
       var first_sheet_name = workbook.SheetNames[0];
       var worksheet = workbook.Sheets[first_sheet_name];
-      var test = XLSX.utils.sheet_to_json(worksheet, { raw: true })
-      this.arrayTest = test
-      // console.log(XLSX.utils.sheet_to_json(worksheet, { raw: true }));
+      var dataExcel = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+      this.arrayExcel = dataExcel
       this.setDataExcel()
     }
     fileReader.readAsArrayBuffer(this.file);
   }
+  dataStudentNotMember = []
   setDataExcel() {
-    for (let item of this.arrayTest) {
+    var arrayStudentOfExcel = []
+    for (let item of this.arrayExcel) {
       var splitted = item.ชื่อ.split(" ");
-      this.arrayName.push(splitted[1])
-      this.arraySurname.push(splitted[2])
-      this.arrayId.push(String(item.รหัส))
+      var username = String(item.รหัส)
+      var password = md5(username)
+      var name = splitted[1]
+      var surname = splitted[2]
+      var email = username + "@go.buu.ac.th"
+      arrayStudentOfExcel.push({ username: username, password: password, name: name, surname: surname, email: email, types: "นิสิต" })
     }
-    var array = this.arrayTest
-    var total
 
-    if (this.arrayId.length === this.arrayTest.length) {
-      for (var i = 0; i < array.length; i++) {
-        var auth = md52(this.arrayId[i]);
-        console.log(auth)
-        total = {
-          name: this.arrayName[i], surname: this.arraySurname[i], username:
-            this.arrayId[i], password: auth, types: "นิสิต", email: this.arrayId[i] + "@go.buu.ac.th"
-        }
-        this.ArrayStudent.push(total)
-      }
-    }
     this.disableBuild = false
     this.disableBtnExcel = true
     this.disableBtnSave = false
-
-    if (this.ArrayStudent.length > 0) {
-      this.http.post<any>('http://localhost:4001/userExcel/', this.ArrayStudent).subscribe((res) => {
+    this.dataStudentNotMember = this.dataStudent.filter(item1 =>
+      !arrayStudentOfExcel.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
+    if (this.dataStudentNotMember.length > 0) {
+      this.http.post<any>('http://localhost:4001/user/', this.dataStudentNotMember).subscribe((res) => {
         console.log(res.status)
+        this.disableBtnUpdate = false;
+        for(var item of this.dataStudentNotMember){
+          this.arrayStudentOfSubject.push({ username: item.username, name: item.name, surname: item.surname })
+        }
+        this.getUserStudent();
       })
     }
-    // this.funcSnShow()
   }
-  funcSnShow() {
-    this.spinner.show();
 
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 20000);
-  }
-  put = []
   exportAsXLSX(): void {
-
-    this.excelService.exportAsExcelFile(this.put, this.nameSubject + "_" + this.id);
-
+    this.excelService.exportAsExcelFile(this.arrayStudentOfSubject, this.nameSubject + "_" + this.id);
   }
 
-  dataNisit = []
-  ArrayNisit = []
-  getNisit() {
-    var arrNisit = []
+  dataStudent = []
+  arrayStudentOfUpdate = []
+  arrayStudentNotSubject = []
+  getUserStudent() {
+    this.dataStudent = []
     this.http.get<any>("http://localhost:4001/user").subscribe(result => {
       var dataUser = result.data
       for (let item of dataUser) {
         if (item.types == "นิสิต" || item.types == "นิสิต,คนคุมสอบ" || item.types == "คนคุมสอบ,นิสิต") {
-          arrNisit.push({ username: item.username, name: item.name, surname: item.surname })
+          this.dataStudent.push({ username: item.username, name: item.name, surname: item.surname })
         }
       }
-      this.ArrayNisit = this.put
-      this.dataNisit = arrNisit.filter(item1 =>
-        !this.put.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
-      console.log(this.dataNisit);
+      this.arrayStudentNotSubject = []
+      this.arrayStudentOfUpdate = this.arrayStudentOfSubject
+      this.arrayStudentNotSubject = this.checkStudentNotSubject(this.dataStudent,this.arrayStudentOfSubject)
+
     })
   }
-  disableBtnUpdate = true;
-  onSetUpdateNisit(event, username: String, name: String, surname: String) {
-    if (event.target.checked) {
-      this.ArrayNisit.push({ username: username, name: name, surname: surname })
-    } else {
-      var array = this.ArrayNisit.filter(item => item.username !== username);
-      this.ArrayNisit = array;
-    }
-    console.log(this.ArrayNisit)
 
-    if ((this.put.length - this.ArrayNisit.length) === 0) {
+  checkStudentNotSubject(arr1 = [],arr2 = []){
+    return arr1.filter(item1 =>
+      !arr2.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
+  }
+  
+  disableBtnUpdate = true;
+  setDataStudentExist(event, username: String, name: String, surname: String) {
+    if (event.target.checked) {
+      this.arrayStudentOfUpdate.push({ username: username, name: name, surname: surname })
+    } else {
+      var array = this.arrayStudentOfUpdate.filter(item => item.username !== username);
+      this.arrayStudentOfUpdate = array;
+    }
+    if ((this.arrayStudentOfSubject.length - this.arrayStudentOfUpdate.length) === 0) {
       this.disableBtnUpdate = true;
     } else {
       this.disableBtnUpdate = false;
     }
   }
-  onClickUpdateNisit() {
-    this.ArrayNisit.sort((a, b) => a.username.localeCompare(b.username));
+
+  dataStudentNew = []
+  setDataStudentNew(event, username: String, name: String, surname: String) {
+    if (event.target.checked) {
+      this.dataStudentNew.push({ username: username, name: name, surname: surname })
+    } else {
+      var array = this.dataStudentNew.filter(item => item.username !== username);
+      this.dataStudentNew = array;
+    }
+    if (this.dataStudentNew.length === 0) {
+      this.disableBtnUpdate = true;
+    } else {
+      this.disableBtnUpdate = false;
+    }
+  }
+  onClickUpdateStudent() {
+    for(var item of this.dataStudentNew){
+      this.arrayStudentOfUpdate.push({ username: item.username, name: item.name, surname: item.surname })
+      this.arrayStudentNotSubject = this.dataStudentNew.filter(item2 => item.username !== item2.username);
+    }
     var obj = {
       id: this.addIncres.value.id, name: this.addIncres.value.nameSubject, teacher:
         this.addIncres.value.nameTeacher, build: this.addIncres.value.build, room:
         this.addIncres.value.room, day: this.addIncres.value.day, timeStart: this.addIncres.value.timeStart,
       timeEnd: this.addIncres.value.timeEnd, faculty: this.addIncres.value.faculty, unit: this.addIncres.value.credit,
-      term: this.addIncres.value.term, year: this.addIncres.value.year, sit: this.ArrayNisit.length, student: this.ArrayNisit
+      term: this.addIncres.value.term, year: this.addIncres.value.year, sit: this.arrayStudentOfUpdate.length, student: this.arrayStudentOfUpdate
     }
     this.http.patch<any>('http://localhost:4001/learnsUpdate/', obj).subscribe((res) => {
       console.log(obj)
+      this.disableBtnUpdate = true
+      this.allowAlertEdit = true
+      setTimeout(() => {
+        this.allowAlertEdit = false
+      }, 3000);
+      this.getSubjectLearn()
     })
-    this.disableBtnUpdate = true
-    this.allowAlertEdit = true
-    setTimeout(() => {
-      this.allowAlertEdit = false
-    }, 5000);
-    this.getSubjectLearn()
   }
 
   onClickClear() {
-    console.log(this.addIncres.value.timeEnd)
+    // console.log(this.addIncres.value.timeEnd)
     var year = (new Date()).getFullYear()
     this.submitted = false
     this.addIncres.get('id').setValue('');
