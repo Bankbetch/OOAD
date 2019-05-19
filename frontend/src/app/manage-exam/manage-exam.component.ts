@@ -748,6 +748,7 @@ export class ManageExamComponent implements OnInit {
   }
 
   dataNisit = []
+  ArrayNisit = []
   getNisit() {
     var arrNisit = []
     this.http.get<any>("http://localhost:4001/user").subscribe(result => {
@@ -757,41 +758,46 @@ export class ManageExamComponent implements OnInit {
           arrNisit.push({ username: item.username, name: item.name, surname: item.surname })
         }
       }
+      this.ArrayNisit = this.put
       this.dataNisit = arrNisit.filter(item1 =>
         !this.put.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
-      // console.log(this.dataNisit);
+      console.log(this.dataNisit);
     })
   }
-  dataUpdateNisit = this.put
   disableBtnUpdate = true;
   onSetUpdateNisit(event, username: String, name: String, surname: String) {
-    console.log(this.dataUpdateNisit)
     if (event.target.checked) {
-        this.dataUpdateNisit.push({ username: username, name: name, surname: surname })
+      this.ArrayNisit.push({ username: username, name: name, surname: surname })
     } else {
-      var array = this.dataUpdateNisit.filter(item => item.username !== username);
-      this.dataUpdateNisit = array;
+      var array = this.ArrayNisit.filter(item => item.username !== username);
+      this.ArrayNisit = array;
     }
-    console.log(this.dataUpdateNisit)
+    console.log(this.ArrayNisit)
 
-    if (this.dataUpdateNisit.length < 1) {
-      this.disableBtnUpdate = true
+    if ((this.put.length - this.ArrayNisit.length) === 0) {
+      this.disableBtnUpdate = true;
     } else {
-      this.disableBtnUpdate = false
+      this.disableBtnUpdate = false;
     }
-
   }
   onClickUpdateNisit() {
+    this.ArrayNisit.sort((a, b) => a.username.localeCompare(b.username));
     var obj = {
       id: this.addIncres.value.id, name: this.addIncres.value.nameSubject, teacher:
         this.addIncres.value.nameTeacher, build: this.addIncres.value.build, room:
         this.addIncres.value.room, day: this.addIncres.value.day, timeStart: this.addIncres.value.timeStart,
       timeEnd: this.addIncres.value.timeEnd, faculty: this.addIncres.value.faculty, unit: this.addIncres.value.credit,
-      term: this.addIncres.value.term, year: this.addIncres.value.year, sit: this.dataNisit.length, student: this.dataNisit
+      term: this.addIncres.value.term, year: this.addIncres.value.year, sit: this.ArrayNisit.length, student: this.ArrayNisit
     }
     this.http.patch<any>('http://localhost:4001/learnsUpdate/', obj).subscribe((res) => {
       console.log(obj)
     })
+    this.disableBtnUpdate = true
+    this.allowAlertEdit = true
+    setTimeout(() => {
+      this.allowAlertEdit = false
+    }, 5000);
+    this.getSubjectLearn()
   }
 
   onClickClear() {
