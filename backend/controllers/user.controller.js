@@ -1,7 +1,7 @@
 const User = require('../schema/user.schema');
 
 exports.findAll = (req, res) => {
-    User.find({}, function (err, obj) {
+    User.find({}, function(err, obj) {
         if (!err) {
             res.json({ data: obj })
         }
@@ -36,7 +36,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     var idRemove = []
-    req.body.forEach(function (item) {
+    req.body.forEach(function(item) {
         idRemove.push(item)
     })
     const query = { _id: { $in: idRemove } }

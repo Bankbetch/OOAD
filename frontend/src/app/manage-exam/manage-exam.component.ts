@@ -693,8 +693,9 @@ export class ManageExamComponent implements OnInit {
     this.disableBuild = false
     this.disableBtnExcel = true
     this.disableBtnSave = false
-    this.dataStudentNotMember = this.dataStudent.filter(item1 =>
-      !arrayStudentOfExcel.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
+    this.dataStudentNotMember = arrayStudentOfExcel.filter(item1 =>
+      !this.dataStudent.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
+      console.log(this.dataStudentNotMember)
     if (this.dataStudentNotMember.length > 0) {
       this.http.post<any>('http://localhost:4001/user/', this.dataStudentNotMember).subscribe((res) => {
         console.log(res.status)
