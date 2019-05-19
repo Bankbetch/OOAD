@@ -696,16 +696,17 @@ export class ManageExamComponent implements OnInit {
     this.dataStudentNotMember = arrayStudentOfExcel.filter(item1 =>
       !this.dataStudent.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
       console.log(this.dataStudentNotMember)
-    if (this.dataStudentNotMember.length > 0) {
-      this.http.post<any>('http://localhost:4001/user/', this.dataStudentNotMember).subscribe((res) => {
-        console.log(res.status)
-        this.disableBtnUpdate = false;
-        for(var item of this.dataStudentNotMember){
-          this.arrayStudentOfSubject.push({ username: item.username, name: item.name, surname: item.surname })
-        }
-        this.getUserStudent();
-      })
-    }
+      for(var item of this.dataStudentNotMember){
+        this.arrayStudentOfSubject.push({ username: item.username, name: item.name, surname: item.surname })
+        var obj = { name: item.name, surname: item.surname, username: item.username, password: item.password, types: item.types, email: item.email }
+        this.http.post<any>('http://localhost:4001/user/', obj).subscribe((res) => {
+          console.log(res.status)
+          this.disableBtnUpdate = false;
+        })
+      }
+      setTimeout(() => {
+      }, 3000);
+      this.getUserStudent();
   }
 
   exportAsXLSX(): void {

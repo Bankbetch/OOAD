@@ -10,6 +10,7 @@ exports.findAll = (req, res) => {
 
 exports.create = (req, res) => {
     User.findOne({ username: req.body.username }, (_, result) => {
+        console.log(req.body.username)
         if (result === null) {
             const newUser = new User({
                 name: req.body.name,
