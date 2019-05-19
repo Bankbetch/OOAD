@@ -1,0 +1,16 @@
+<div class="container">
+    <h1 class="text-secondary text-center">รายการคุมสอบ</h1>
+    <div *ngFor="let item of dataExams | orderBy: order:reverse:'case-insensitive' ; let i = index">
+        <div class="card">
+            <div class="card-header">
+                <h1> {{ item.id }} {{ item.name }} </h1>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">ห้องสอบ: {{ item.room }} | วันสอบ: {{ item.day }} {{ item.timeStart }} - {{ item.timeEnd }}</h5>
+                <p class="card-text">คณะ: {{ item.faculty }} | จำนวนนิสิต: {{ item.listNisit.length }} คน</p>
+                <a class="btn btn-danger text-white">ปริ้นรายชื่อนิสิต</a>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>

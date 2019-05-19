@@ -10,7 +10,7 @@ export class AppComponent {
   disableMenuStaff = false
   disableMenuTeacher = false
   disableMenuStudent = false
-  disableMenuExcame = false
+  disableMenuProctor = false
   getLogin = ""
   checkG = ""
   name = ""
@@ -41,19 +41,19 @@ export class AppComponent {
       this.disableMenuStudent = true;
     } else if (this.checkG === "นิสิต,คนคุมสอบ") {
       this.disableMenuStudent = true;
-      this.disableMenuExcame = true;
+      this.disableMenuProctor = true;
     } else if (this.checkG === "อาจารย์") {
       this.disableMenuTeacher = true;
     } else if (this.checkG === "อาจารย์,คนคุมสอบ") {
       this.disableMenuTeacher = true;
-      this.disableMenuExcame = true;
+      this.disableMenuProctor = true;
     } else if (this.checkG === "คนคุมสอบ") {
-      this.disableMenuExcame = true;
+      this.disableMenuProctor = true;
     } else if (this.checkG === "เจ้าหน้าที่") {
       this.disableMenuStaff = true;
     } else if (this.checkG === "เจ้าหน้าที่,คนคุมสอบ") {
       this.disableMenuStaff = true;
-      this.disableMenuExcame = true;
+      this.disableMenuProctor = true;
     }
   }
 
@@ -102,7 +102,7 @@ export class AppComponent {
       this.disableMenuStaff = false
       this.disableMenuTeacher = false
       this.disableMenuStudent = false
-      this.disableMenuExcame = false
+      this.disableMenuProctor = false
     }
     window.onload = function () {
     }

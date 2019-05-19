@@ -20,6 +20,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ExcelService } from './manage-exam/excel.service';
 import { ManageTestComponent } from './manage-exam/manage-test/manage-test.component';
 import { RoomComponent } from './manage-build/room/room.component';
+import { ProctorComponent } from './proctor/proctor.component';
 const router: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,7 @@ const router: Routes = [
   { path: 'เจ้าหน้าที่/จัดการห้อง', component: RoomComponent },
   { path: 'เจ้าหน้าที่/จัดการการสอบ', component: ManageTestComponent },
   { path: 'เจ้าหน้าที่/จัดการตึก', component: ManageBuildComponent },
+  { path: 'คนคุมสอบ/รายการคุมสอบ', component: ProctorComponent },
   { path: '**', redirectTo: '/login' }
 ]
 
@@ -46,7 +48,8 @@ const router: Routes = [
     AddSubjectComponent,
     ManageBuildComponent,
     ManageTestComponent,
-    RoomComponent
+    RoomComponent,
+    ProctorComponent
   ],
   imports: [
     BrowserModule,
