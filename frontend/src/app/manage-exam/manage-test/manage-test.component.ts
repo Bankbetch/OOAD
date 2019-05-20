@@ -349,6 +349,7 @@ export class ManageTestComponent implements OnInit {
           var row = result1.data[0].row
           var countRow = 1, countCol = 0;
           for (let item of listName) {
+    
             if (countCol < col * 2) {
               if (countRow <= row && countCol === 0) {
                 nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "A" + countRow }
@@ -399,6 +400,13 @@ export class ManageTestComponent implements OnInit {
                 countCol++;
               }
             }
+            var data = {
+              id: this.form.value.id,
+              listNisit: this.student
+            }
+            this.http.patch<any>("http://localhost:4001/examUpdate/",data).subscribe(result => {
+              console.log(data)
+            })
           }
         })
       })
