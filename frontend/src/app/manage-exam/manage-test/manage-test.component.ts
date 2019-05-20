@@ -279,7 +279,10 @@ export class ManageTestComponent implements OnInit {
     var getArr = []
     arr = this.form.value.nameExamer
     for (let item of arr) {
-      getArr.push(item.item_text)
+      var splitted = item.item_text.split(" ");
+      var name = splitted[0]
+      var surname = splitted[1]
+      getArr.push({name:name,surname:surname})
     }
     var data = {
       id: this.form.value.id,

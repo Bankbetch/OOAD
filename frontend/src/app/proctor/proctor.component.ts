@@ -10,22 +10,36 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ProctorComponent implements OnInit {
 
-  constructor( private http: HttpClient,
-   private title: Title,
+  constructor(private http: HttpClient,
+    private title: Title,
     private spinner: NgxSpinnerService) {
     this.title.setTitle("รายการคุมสอบ")
   }
 
+  getName
+  getSurname
+
   ngOnInit() {
+    this.getName = localStorage.getItem("getName")
+    this.getSurname = localStorage.getItem("getSurname")
     this.getListProctor()
   }
 
-  dataExams = []
+  dataProctor = []
 
-  getListProctor(){
+  getListProctor() {
     this.http.get<any>('http://localhost:4001/exam').subscribe(result => {
-      this.dataExams = result.data
-  })
+      var dataExams = result.data
+      for (var item of dataExams) {
+        for (var item2 of item.examer) {
+          if (item2.name === this.getName && item2.surname === this.getSurname) {
+            console.log(item2.name)
+            this.dataProctor.push(item)
+          }
+
+        }
+      }
+    })
   }
 
 }
