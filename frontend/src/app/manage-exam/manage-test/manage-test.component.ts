@@ -171,7 +171,7 @@ export class ManageTestComponent implements OnInit {
 
   insertExam() {
     this.submitted = true
-    console.log(this.form.invalid)
+    console.log(this.form.value)
     // if (this.form.invalid) {
     //   return;
     // }
@@ -188,7 +188,7 @@ export class ManageTestComponent implements OnInit {
       statusExam: "เปิดการสอบ"
     }
     this.http.post<any>('http://localhost:4001/exam', data).subscribe(res => {
-      if (res.status) {
+      if (res.status == true) {
         alert("เพิ่มข้อมูลเรียบร้อย")
         document.getElementById('closeModalInsert').click()
         this.onGetTable()
