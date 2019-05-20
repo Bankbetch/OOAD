@@ -9,8 +9,7 @@
         </div>
         <div class="col">
             <div class="input-group">
-                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา"
-                    [(ngModel)]="searchString">
+                <input type="text" class="form-control" name="searchString" placeholder="ค้นหา" [(ngModel)]="searchString">
                 <div class="input-group-prepend bg-white">
                     <span class="input-group-text border-left-0 rounded-right bg-white">
                         <i class="fa fa-search"></i>
@@ -48,19 +47,17 @@
         <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDel" (click)="cancelExam()">
             <i class="fa fa-trash"></i>ยกเลิกการสอบ</button>&nbsp;
 
-        <button class="btn btn-outline-success" id="insertEx" data-toggle="modal" data-target="#modalInsert"
-            (click)="onClear()">
+        <button class="btn btn-outline-success" id="insertEx" data-toggle="modal" data-target="#modalInsert" (click)="onClear()">
             <i class="fa fa-plus"></i>เพิ่มการสอบ</button>&nbsp;
     </div>
     <br>
     <div class="table-responsive">
-        <table class="table table-hover text-cente">
+        <table class="table table-hover text-center">
             <thead>
                 <tr>
                     <th scope="col">เลือก</th>
                     <th scope="col" [class.active]="order === 'id'" (click)="setOrder('id')">รหัสวิชา</th>
                     <th scope="col" [class.active]="order === 'name'" (click)="setOrder('name')">ชื่อวิชา</th>
-                    <th scope="col" [class.active]="order === 'faculty'" (click)="setOrder('faculty')">คณะ</th>
                     <th scope="col" [class.active]="order === 'teacher'" (click)="setOrder('teacher')">อาจารย์</th>
                     <th scope="col">วัน</th>
                     <th scope="col">เวลาเริ่ม</th>
@@ -69,7 +66,9 @@
                     <th scope="col">จำนวนนิสิต</th>
                     <th scope="col">คนคุมสอบ</th>
                     <th scope="col">สถานะ</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">แก้ไข</th>
+                    <th scope="col">ดูที่นั่ง</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -81,18 +80,16 @@
                     </td>
                     <td>{{item.id}} </td>
                     <td>{{item.name}} </td>
-                    <td>{{item.faculty}} </td>
                     <td>{{item.teacher}} </td>
                     <td>{{item.day}} </td>
                     <td>{{item.timeStart}} </td>
                     <td>{{item.timeEnd}} </td>
                     <td>{{item.room}}</td>
                     <td>{{item.amongNisit}}</td>
-                    <td>{{item.examer}}</td>
+                    <td>{{item.examer.length}}</td>
                     <td>{{item.statusExam}}</td>
                     <td>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit"
-                            data-dismiss="modal" (click)=" tableClick(
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" data-dismiss="modal" (click)=" tableClick(
             item.id,
             item.name,
             item.teacher,
@@ -107,8 +104,7 @@
                             <i class="fa fa-edit"></i></button>
                     </td>
                     <td>
-                        <button class="btn btn-info" data-toggle="modal" data-target="#modalSit"
-                            data-dismiss="modal" (click)=" tableClick(
+                        <button class="btn btn-info" data-toggle="modal" data-target="#modalSit" data-dismiss="modal" (click)=" tableClick(
                                 item.id,
                                 item.name,
                                 item.teacher,
@@ -132,8 +128,7 @@
 
 <!-- ModalInsert -->
 
-<div class="modal fade" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-backdrop="false" id="modalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -146,8 +141,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>รหัสวิชา</label>
-                                <select class="form-control" formControlName="id" (change)="checkIdSubject()"
-                                    [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                <select class="form-control" formControlName="id" (change)="checkIdSubject()" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of subjectOpen">{{item.id}}</option>
                                 </select>
@@ -159,8 +153,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ชื่อวิชา </label>
-                                <select class="form-control" formControlName="nameSubject" (change)="checkNameSubject()"
-                                    [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
+                                <select class="form-control" formControlName="nameSubject" (change)="checkNameSubject()" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of subjectOpen">{{item.name}}</option>
                                 </select>
@@ -174,8 +167,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ชื่ออาจารย์ </label>
-                                <input type="text" formControlName="nameTeacher" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.nameTeacher.errors }" disabled />
+                                <input type="text" formControlName="nameTeacher" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nameTeacher.errors }" disabled />
                                 <div *ngIf="submitted && f.nameTeacher.errors" class="invalid-feedback">
                                     <div *ngIf="f.nameTeacher.errors.required">
                                         กรุณากรอกชื่ออาจารย์
@@ -187,8 +179,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>คณะ </label>
-                                    <input type="text" formControlName="faculty" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                    <input type="text" formControlName="faculty" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
                                     <div *ngIf="submitted && f.faculty.errors" class="invalid-feedback">
                                         <div *ngIf="f.faculty.errors.required">
                                             กรุณากรอกคณะ
@@ -202,8 +193,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>วัน </label>
-                                <select class="form-control" formControlName="day"
-                                    [ngClass]="{ 'is-invalid': submitted && f.day.errors }" (change)="checkDay()">
+                                <select class="form-control" formControlName="day" [ngClass]="{ 'is-invalid': submitted && f.day.errors }" (change)="checkDay()">
                                     <option selected disabled>เลือก</option>
                                     <option>จันทร์</option>
                                     <option>อังคาร</option>
@@ -221,9 +211,7 @@
                         <div class="col">
                             <label>เวลาเริ่มสอบ </label>
                             <div class="form-group">
-                                <select class="form-control" formControlName="timeStart" (change)="checkTime()"
-                                    id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }"
-                                    disabled>
+                                <select class="form-control" formControlName="timeStart" (change)="checkTime()" id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }" disabled>
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of pickTimeStart">{{item}}</option>
                                 </select>
@@ -235,8 +223,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>เวลาที่สิ้นสุดสอบ </label>
-                                <select class="form-control" formControlName="timeEnd" id="timeEnd"
-                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled>
+                                <select class="form-control" formControlName="timeEnd" id="timeEnd" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled>
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of pickTimeEnd">{{item}}</option>
                                 </select>
@@ -249,8 +236,7 @@
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">บันทึก</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()"
-                            id=closeModalInsert>ยกเลิก</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()" id=closeModalInsert>ยกเลิก</button>
                     </div>
                 </form>
             </div>
@@ -259,8 +245,7 @@
 </div>
 
 <!-- ModalEdit -->
-<div class="modal fade" data-backdrop="false" id="modalEdit" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-backdrop="false" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -273,15 +258,13 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>รหัสวิชา</label>
-                                <input type="text" formControlName="id" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>ชื่อวิชา </label>
-                                <input type="text" formControlName="nameSubject" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                <input type="text" formControlName="nameSubject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
                             </div>
                         </div>
                     </div>
@@ -289,16 +272,14 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ชื่ออาจารย์ </label>
-                                <input type="text" formControlName="nameTeacher" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                <input type="text" formControlName="nameTeacher" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
                             </div>
                         </div>
                         <div class="col">
                             <div class="col">
                                 <div class="form-group">
                                     <label>คณะ </label>
-                                    <input type="text" formControlName="faculty" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                    <input type="text" formControlName="faculty" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
                                 </div>
                             </div>
                         </div>
@@ -307,8 +288,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>วัน </label>
-                                <select class="form-control" formControlName="day"
-                                    [ngClass]="{ 'is-invalid': submitted && f.day.errors }" (change)="checkDay()">
+                                <select class="form-control" formControlName="day" [ngClass]="{ 'is-invalid': submitted && f.day.errors }" (change)="checkDay()">
                                     <option>จันทร์</option>
                                     <option>อังคาร</option>
                                     <option>พุธ</option>
@@ -325,8 +305,7 @@
                         <div class="col">
                             <label>เวลาเริ่มสอบ </label>
                             <div class="form-group">
-                                <select class="form-control" formControlName="timeStart" (change)="checkTime()"
-                                    id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }">
+                                <select class="form-control" formControlName="timeStart" (change)="checkTime()" id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of pickTimeStart">{{item}}</option>
                                 </select>
@@ -338,11 +317,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>เวลาที่สิ้นสุดสอบ </label>
-                                <input type="text" formControlName="timeEnd" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled
-                                    *ngIf="hideTimeBtn" />
-                                <select class="form-control" formControlName="timeEnd" id="timeEnd"
-                                    *ngIf="hideTimeSelect" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
+                                <input type="text" formControlName="timeEnd" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled *ngIf="hideTimeBtn" />
+                                <select class="form-control" formControlName="timeEnd" id="timeEnd" *ngIf="hideTimeSelect" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of pickTimeEnd">{{item}}</option>
                                 </select>
@@ -356,10 +332,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>คนคุมสอบ </label>
-                                <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="examerList"
-                                    formControlName="nameExamer" [(ngModel)]="selectedItems"
-                                    [ngClass]="{ 'is-invalid': submitted && f.nameExamer.errors }"
-                                    [settings]="dropdownSettings" (onSelect)="onItemSelect($event)">
+                                <ng-multiselect-dropdown [placeholder]="'เลือก'" [data]="examerList" formControlName="nameExamer" [(ngModel)]="selectedItems" [ngClass]="{ 'is-invalid': submitted && f.nameExamer.errors }" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)">
                                 </ng-multiselect-dropdown>
                                 <div *ngIf="submitted && f.nameExamer.errors" class="invalid-feedback">
                                     <div *ngIf="f.nameExamer.errors.required">คนคุมสอบ</div>
@@ -371,8 +344,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ห้องสอบ </label>
-                                <select class="form-control" formControlName="room"
-                                    [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
+                                <select class="form-control" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of roomList">{{item}}</option>
                                 </select>
@@ -385,8 +357,7 @@
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">บันทึก</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()"
-                            id=closeModalEdit>ยกเลิก</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()" id=closeModalEdit>ยกเลิก</button>
                     </div>
                 </form>
             </div>
@@ -394,9 +365,9 @@
     </div>
 </div>
 
- <!--modalSit-->
+<!--modalSit-->
 
- <div class="modal fade" data-backdrop="false" id="modalSit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-backdrop="false" id="modalSit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -411,7 +382,7 @@
                         <h3 class="font-weight-bold text-left"> {{id}} &nbsp; {{name}} </h3>
                     </div>
                     <div class="col col-lg-4">
-                        
+
                     </div>
                 </div>
                 <div class="row">
@@ -419,7 +390,7 @@
                         <h4 class="font-weight-bold text-left"> จำนวนนิสิต {{sit}} คน </h4>
                     </div>
                     <div class="col">
-                        
+
                     </div>
                 </div>
                 <br>
