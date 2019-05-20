@@ -170,11 +170,13 @@ export class ManageTestComponent implements OnInit {
   }
 
   insertExam() {
+
+    this.form.controls['nameExamer'].setValue(true);
+    this.form.controls['room'].setValue(true);
     this.submitted = true
-    console.log(this.form.value)
-    // if (this.form.invalid) {
-    //   return;
-    // }
+    if (this.form.invalid) {
+      return;
+    }
     var data = {
       id: this.form.value.id,
       name: this.form.value.nameSubject,
