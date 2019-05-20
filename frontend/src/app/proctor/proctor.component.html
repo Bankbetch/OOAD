@@ -8,7 +8,7 @@
             <div class="card-body">
                 <h5 class="card-title">ห้องสอบ: {{ item.room }} | วันสอบ: {{ item.day }} {{ item.timeStart }} - {{ item.timeEnd }}</h5>
                 <p class="card-text">คณะ: {{ item.faculty }} | จำนวนนิสิต: {{ item.listNisit?.length || '0' }} คน</p>
-                <a class="btn btn-danger text-white">ปริ้นรายชื่อนิสิต</a>
+                <button class="btn btn-danger text-white" (click)="printStudent(item.id)">ปริ้นรายชื่อนิสิต</button>
             </div>
         </div>
         <br>

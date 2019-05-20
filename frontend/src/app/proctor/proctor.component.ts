@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Title } from "@angular/platform-browser";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { ExcelService } from '../manage-exam/excel.service';
 
 @Component({
   selector: 'app-proctor',
@@ -11,8 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ProctorComponent implements OnInit {
 
   constructor(private http: HttpClient,
-    private title: Title,
-    private spinner: NgxSpinnerService) {
+    private title: Title, private excelService: ExcelService) {
     this.title.setTitle("รายการคุมสอบ")
   }
 
@@ -25,21 +24,43 @@ export class ProctorComponent implements OnInit {
     this.getListProctor()
   }
 
+  dataExam = []
   dataProctor = []
+  arrayStudentOfExam = []
 
   getListProctor() {
     this.http.get<any>('http://localhost:4001/exam').subscribe(result => {
-      var dataExams = result.data
-      for (var item of dataExams) {
+      this.dataExam = result.data
+      for (var item of this.dataExam) {
         for (var item2 of item.examer) {
-          if (item2.name === this.getName && item2.surname === this.getSurname) {
-            console.log(item2.name)
+          var splitted = item2.split(" ");
+          var name = splitted[0]
+          var surname = splitted[1]
+          if (name === this.getName && surname === this.getSurname) {
             this.dataProctor.push(item)
           }
-
         }
       }
     })
   }
 
+  nameSubject
+  id
+
+  printStudent(idSubject) {
+    for (let item of this.dataExam) {
+      if (item.id === idSubject) {
+        this.nameSubject = item.name
+        this.id = item.id
+        for (let item2 of item.listNisit) {
+          this.arrayStudentOfExam.push({ รหัสนิสิต: item2.username, ชื่อ: item2.name, นามสกุล: item2.surname, ที่นั่งสอบ: item2.examSit, ช่องเซ็นชื่อ: "" })
+        }
+      }
+    }
+    this.exportAsXLSX()
+  }
+
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.arrayStudentOfExam, this.nameSubject + "_" + this.id);
+  }
 }
