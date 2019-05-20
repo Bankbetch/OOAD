@@ -349,7 +349,7 @@
                                 <label>ห้องสอบ </label>
                                 <select class="form-control" formControlName="room"
                                     [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
-                                    <option disabled selected *ngIf="checkselect">เลือก</option>
+                                    <option selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of roomList">{{item}}</option>
                                 </select>
                                 <div *ngIf="submitted && f.room.errors" class="invalid-feedback">

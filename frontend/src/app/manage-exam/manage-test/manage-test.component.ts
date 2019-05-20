@@ -171,7 +171,7 @@ export class ManageTestComponent implements OnInit {
 
   insertExam() {
     this.submitted = true
-    console.log(this.form.invalid)
+    console.log(this.form.value)
     // if (this.form.invalid) {
     //   return;
     // }
@@ -188,7 +188,7 @@ export class ManageTestComponent implements OnInit {
       statusExam: "เปิดการสอบ"
     }
     this.http.post<any>('http://localhost:4001/exam', data).subscribe(res => {
-      if (res.data.status) {
+      if (res.status == true) {
         alert("เพิ่มข้อมูลเรียบร้อย")
         document.getElementById('closeModalInsert').click()
         this.onGetTable()
@@ -293,7 +293,7 @@ export class ManageTestComponent implements OnInit {
     }
     console.log(data)
     this.http.patch<any>('http://localhost:4001/examUpdate', data).subscribe(res => {
-      if (res.data.status) {
+      if (res.status) {
         alert("แก้ไขข้อมูลเรียบร้อย")
         document.getElementById('closeModalEdit').click()
         this.onGetTable()
@@ -321,6 +321,7 @@ export class ManageTestComponent implements OnInit {
     this.sit = amongNisit
     this.id = id
     this.name = name
+    this.roomList = []
     console.log(this.form.get('nameExamer').value)
     if (faculty === "วิทยาการสารสนเทศ") {
       for (let item of this.builds) {
@@ -490,7 +491,7 @@ export class ManageTestComponent implements OnInit {
       statusExam: "เปิดการสอบ"
     }
     this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
-      if (res.data.status) {
+      if (res.status) {
         alert("แก้ไขข้อมูลเรียบร้อย")
         this.onGetTable()
       }
