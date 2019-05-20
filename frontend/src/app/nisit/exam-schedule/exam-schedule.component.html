@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 class="text-secondary text-center">ตารางสอบ</h1>
+  <div *ngFor="let item of dataShow | orderBy: order:reverse:'case-insensitive' ; let i = index">
+      <div class="card">
+          <div class="card-header">
+              <h1> {{item.id}} {{item.name}}</h1>
+          </div>
+          <div class="card-body">
+              <h5 class="card-title">ห้องสอบ: {{ item.room }} | วันสอบ: {{ item.day }} {{ item.time }}</h5>
+              <p class="card-text">คณะ: {{ item.faculty }} | ที่นั่งสอบ: {{ item.sit}}</p>
+          </div>
+      </div>
+      <br>
+  </div>
+</div>

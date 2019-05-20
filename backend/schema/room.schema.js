@@ -11,7 +11,9 @@ var roomSchema = moogoose.Schema({
     the: Array,
     fri: Array,
     sat: Array,
-    sun: Array
+    sun: Array,
+    row: Number,
+    col: Number
 })
 
 module.exports = moogoose.model('rooms', roomSchema)

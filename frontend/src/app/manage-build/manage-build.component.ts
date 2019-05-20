@@ -97,6 +97,13 @@ export class ManageBuildComponent implements OnInit {
       }]
     })
   }
+  notText(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31
+      && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
   isNotNumber(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 33 || charCode > 64 && charCode < 91 || charCode > 96 && charCode < 123 || charCode > 126))
@@ -132,20 +139,40 @@ export class ManageBuildComponent implements OnInit {
       }
     }
   }
-
+  allowAlertDelete = false
+  allowAlertDeleteFail = false
   onClickDelete() {
-    var r = confirm("กดokเพื่อลบข้อมูล");
-    if (r == true) {
-      if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
-        this.http.post('http://localhost:4001/buildDelete', this.dataDelete).subscribe((res) => {
-          this.getTable()
-          this.dataDelete = []
-        })
-      }
-      if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
-        alert("กรุณาเลือกข้อมูลที่จะลบ")
-      }
+    // var r = confirm("กดokเพื่อลบข้อมูล");
+    // if (r == true) {
+    //   if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
+    //     this.http.post('http://localhost:4001/buildDelete', this.dataDelete).subscribe((res) => {
+    //       this.getTable()
+    //       this.dataDelete = []
+    //     })
+    //   }
+    //   if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
+    //     alert("กรุณาเลือกข้อมูลที่จะลบ")
+    //   }
+    // }
+
+    if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
+      this.allowAlertDelete = true
+      setTimeout(() => {
+        this.allowAlertDelete = false
+      }, 3000);
+      this.http.post('http://localhost:4001/buildDelete', this.dataDelete).subscribe((res) => {
+        document.getElementById("closeModalDelete").click();
+        this.getTable()
+        this.dataDelete = []
+      })
     }
+    if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
+      this.allowAlertDeleteFail = true
+      setTimeout(() => {
+        this.allowAlertDeleteFail = false
+      }, 3000);
+    }
+    
   }
 
   _id

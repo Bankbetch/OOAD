@@ -38,6 +38,8 @@ export class RoomComponent implements OnInit {
         build: ['', Validators.required],
         room: ['', Validators.required],
         sit: ['', Validators.required],
+        col: ['', Validators.required],
+        row: ['', Validators.required],
       })
   }
   check() {
@@ -66,6 +68,8 @@ export class RoomComponent implements OnInit {
     this.manageBuild.get('build').setValue("");
     this.manageBuild.get('room').setValue("");
     this.manageBuild.get('sit').setValue("");
+    this.manageBuild.get('row').setValue("");
+    this.manageBuild.get('col').setValue("");
     this.disableSBuild = true
     this.allowAlertAdd = false
     this.dataDelete = []
@@ -129,7 +133,11 @@ export class RoomComponent implements OnInit {
       "18.00",
       "19.00",
       "20.00"]
-    var obj = { build: this.manageBuild.value.build, room: this.manageBuild.value.room, sit: this.manageBuild.value.sit, time: time }
+    var obj = {
+      build: this.manageBuild.value.build, room: this.manageBuild.value.room,
+      sit: this.manageBuild.value.sit, time: time, col: this.manageBuild.value.col,
+      row: this.manageBuild.value.row
+    }
     this.http.post<any>('http://localhost:4001/room', obj).subscribe((res) => {
       if (res.status === true) {
         document.getElementById("closeModalInsert").click();
@@ -160,22 +168,40 @@ export class RoomComponent implements OnInit {
   }
   objBuild
   checkBuildAmong
+  allowAlertDelete = false
   onClickDelete() {
-    var r = confirm("กดokเพื่อลบข้อมูล");
-    if (r == true) {
-      if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
-        var _id = { _id: this.dataDelete }
-        this.http.post('http://localhost:4001/roomDelete', this.dataDelete).subscribe((res) => {
-          this.getTable()
-          this.dataDelete = []
-        })
-      }
-      if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
-        alert("กรุณาเลือกข้อมูลที่จะลบ")
-      }
-    }
-  }
+    // var r = confirm("กดokเพื่อลบข้อมูล");
+    // if (r == true) {
+    //   if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
+    //     var _id = { _id: this.dataDelete }
 
+    //   }
+    //   if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
+    //     alert("กรุณาเลือกข้อมูลที่จะลบ")
+    //   }
+    // }
+
+    if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
+      this.allowAlertDelete = true
+      setTimeout(() => {
+        this.allowAlertDelete = false
+      }, 3000);
+      this.http.post('http://localhost:4001/roomDelete', this.dataDelete).subscribe((res) => {
+        document.getElementById("closeModalDelete").click();
+        this.getTable()
+        this.dataDelete = []
+      })
+    }
+    if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
+      this.allowAlertDeleteFail = true
+      setTimeout(() => {
+        this.allowAlertDeleteFail = false
+      }, 3000);
+    }
+
+
+  }
+  allowAlertDeleteFail = false
   _id
   monday = []
   tuesday = []
@@ -185,7 +211,7 @@ export class RoomComponent implements OnInit {
   saterday = []
   sunday = []
   build = ""
-  onClickEdit(_id: String, build: string, room: string, sit: string, m, t, w, th, f, s, su) {
+  onClickEdit(_id: String, build: string, room: string, sit: string, row: number, col: number, m, t, w, th, f, s, su) {
     this.manageBuild.get('build').setValue(build);
     this.manageBuild.get('room').setValue(room);
     this.manageBuild.get('sit').setValue(sit)
@@ -196,6 +222,9 @@ export class RoomComponent implements OnInit {
     this.friday = f
     this.saterday = s
     this.sunday = su
+    console.log(this.manageBuild.value)
+    this.manageBuild.get('row').setValue(row)
+    this.manageBuild.get('col').setValue(col)
     this._id = _id
     this.checkBuildAmong = build
     this.build = this.manageBuild.value.build
@@ -210,7 +239,12 @@ export class RoomComponent implements OnInit {
     }
 
 
-    var obj = { _id: this._id, build: this.manageBuild.value.build, room: this.manageBuild.value.room, sit: this.manageBuild.value.sit, mon: this.monday, tue: this.tuesday, wed: this.wednesday, thu: this.thursday, fri: this.friday, sat: this.saterday, sun: this.sunday }
+    var obj = {
+      _id: this._id, build: this.manageBuild.value.build, room: this.manageBuild.value.room,
+      sit: this.manageBuild.value.sit, mon: this.monday, tue: this.tuesday,
+      wed: this.wednesday, thu: this.thursday, fri: this.friday,
+      sat: this.saterday, sun: this.sunday, row: this.manageBuild.value.row, col: this.manageBuild.value.col
+    }
     console.log(this.objBuild)
     console.log(this.objBuildBefore)
     var oo = [this.objBuild, this.objBuildBefore]
@@ -267,5 +301,5 @@ export class RoomComponent implements OnInit {
       && (charCode < 48 || charCode > 57))
       return false;
     return true;
-  }   
+  }
 }

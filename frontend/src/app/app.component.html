@@ -11,6 +11,11 @@
             </p>
             <li class="nav-item" *ngIf="disableMenuStudent">
                 <a href="#menuStudent" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">นิสิต</a>
+                <ul class="collapse list-unstyled" id="menuStudent">
+                    <li>
+                        <a routerLink="/นิสิต/ตารางสอบ" routerLinkActive="active-link">ตารางสอบ</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item" *ngIf="disableMenuTeacher">
                 <a href="#menuTeacher" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">อาจารย์</a>
