@@ -65,7 +65,7 @@
                     <td>{{item.examer.length}}</td>
                     <td>{{item.statusExam}}</td>
                     <td>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" data-dismiss="modal" (click)=" tableClick(
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" data-dismiss="modal" (click)="tableClick(
             item.id,
             item.name,
             item.teacher,
@@ -80,18 +80,18 @@
                             <i class="fa fa-edit"></i></button>
                     </td>
                     <td>
-                        <button class="btn btn-info" data-toggle="modal" data-target="#modalSit" data-dismiss="modal" (click)=" tableClick(
-                                item.id,
-                                item.name,
-                                item.teacher,
-                                item.faculty,
-                                item.timeStart,
-                                item.timeEnd,
-                                item.day,
-                                item.room,
-                                item.amongNisit,
-                                item.examer
-                                ) ">
+                        <button class="btn btn-info" data-toggle="modal" data-target="#modalSit" data-dismiss="modal" (click)="tableClick(
+                            item.id,
+                            item.name,
+                            item.teacher,
+                            item.faculty,
+                            item.timeStart,
+                            item.timeEnd,
+                            item.day,
+                            item.room,
+                            item.amongNisit,
+                            item.examer
+                            )">  
                             <i class="fa fa-male"></i></button>
                     </td>
                 </tr>

@@ -6,8 +6,8 @@
                 <h3> {{item.id}} {{item.name}}</h3>
             </div>
             <div class="card-body">
-                <h5 class="card-title">ห้องสอบ: {{ item.room }} | วันสอบ: {{ item.day }} {{ item.time }} น.</h5>
-                <p class="card-text">คณะ: {{ item.faculty }} | ที่นั่งสอบ: {{ item.sit }} คน</p>
+                <h5 class="card-title">ห้องสอบ: {{ item.room }} | วันสอบ: {{ item.day }} {{ item.timeStart }} - {{ item.timeEnd }} น.</h5>
+                <p class="card-text">คณะ: {{ item.faculty }} | จำนวนนิสิต: {{ item.listNisit?.length || '0' }} คน</p>
             </div>
         </div>
         <br>

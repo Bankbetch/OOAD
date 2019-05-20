@@ -39,12 +39,7 @@ export class TeacherComponent implements OnInit {
           var name = splitted[0]
           var surname = splitted[1]
           if (name === this.getName && surname === this.getSurname) {
-            this.dataShow.push({
-              id: item.id, name: item.name,
-              room: item.room, day: item.day, faculty: item.faculty,
-              time: item.timeStart + " - " + item.timeEnd,
-              sit: item.examSit
-            })
+            this.dataShow.push(item)
             console.log(this.dataShow)
           }
         }

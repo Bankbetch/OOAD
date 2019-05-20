@@ -307,6 +307,7 @@ export class ManageTestComponent implements OnInit {
   sit
   id
   name
+  room
   student = []
   tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, room: string, amongNisit: string, nameExamer: string) {
     this.form.get('id').setValue(id);
@@ -321,8 +322,8 @@ export class ManageTestComponent implements OnInit {
     this.sit = amongNisit
     this.id = id
     this.name = name
+    this.room = room
     this.roomList = []
-    this.student = []
     console.log(this.form.get('nameExamer').value)
     if (faculty === "วิทยาการสารสนเทศ") {
       for (let item of this.builds) {
@@ -333,7 +334,7 @@ export class ManageTestComponent implements OnInit {
         }
       }
     }
-    var nameSJ
+    
     var dataExamer = []
     if (nameExamer.length >= 1) {
       for (let item of this.examerList) {
@@ -345,9 +346,15 @@ export class ManageTestComponent implements OnInit {
       }
     }
     this.selectedItems = dataExamer
+    this.generateSit()
+  }
+
+  generateSit(){
+    var nameSJ
+    this.student = []
     if (this.sit !== 0) {
-      this.http.get<any>('http://localhost:4001/exam/' + id).subscribe(result => {
-        this.http.get<any>('http://localhost:4001/room/' + room).subscribe(result1 => {
+      this.http.get<any>('http://localhost:4001/exam/' + this.id).subscribe(result => {
+        this.http.get<any>('http://localhost:4001/room/' + this.room).subscribe(result1 => {
           var listName = result.data[0].listNisit
           var col = result1.data[0].col
           var row = result1.data[0].row
@@ -416,6 +423,7 @@ export class ManageTestComponent implements OnInit {
       })
     }
   }
+
   onItemSelect(items: any) {
   }
   arrayDeleteCheck = ""
