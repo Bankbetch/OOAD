@@ -22,6 +22,7 @@ import { ManageTestComponent } from './manage-exam/manage-test/manage-test.compo
 import { RoomComponent } from './manage-build/room/room.component';
 import { ProctorComponent } from './proctor/proctor.component';
 import { ExamScheduleComponent } from './nisit/exam-schedule/exam-schedule.component';
+import { TeacherComponent } from './teacher/teacher.component';
 const router: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -35,6 +36,7 @@ const router: Routes = [
   { path: 'เจ้าหน้าที่/จัดการตึก', component: ManageBuildComponent },
   { path: 'คนคุมสอบ/รายการคุมสอบ', component: ProctorComponent },
   { path: 'นิสิต/ตารางสอบ', component: ExamScheduleComponent },
+  { path: 'อาจารย์/ตารางสอบ', component: TeacherComponent },
   { path: '**', redirectTo: '/login' }
 ]
 
@@ -52,7 +54,8 @@ const router: Routes = [
     ManageTestComponent,
     RoomComponent,
     ProctorComponent,
-    ExamScheduleComponent
+    ExamScheduleComponent,
+    TeacherComponent
   ],
   imports: [
     BrowserModule,

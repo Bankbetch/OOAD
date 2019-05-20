@@ -3,11 +3,11 @@
     <div *ngFor="let item of dataShow | orderBy: order:reverse:'case-insensitive' ; let i = index">
         <div class="card">
             <div class="card-header">
-                <h1> {{item.id}} {{item.name}}</h1>
+                <h3> {{item.id}} {{item.name}}</h3>
             </div>
             <div class="card-body">
                 <h5 class="card-title">ห้องสอบ: {{ item.room }} | วันสอบ: {{ item.day }} {{ item.time }} น.</h5>
-                <p class="card-text">คณะ: {{ item.faculty }} | ที่นั่งสอบ: {{ item.sit}} คน</p>
+                <p class="card-text">คณะ: {{ item.faculty }} | ที่นั่งสอบ: {{ item.sit }} คน</p>
             </div>
         </div>
         <br>

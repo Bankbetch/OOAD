@@ -78,32 +78,7 @@ export class ManageExamComponent implements OnInit {
   }
   setSelectTeacher = []
   onItemSelect(items: any) {
-    // this.addIncres.get('nameTeacher').setValue(this.selectedItems)
-    // var data = items
-    // var arr = []
-    // // console.log(data)
-    // arr.push(items)
-    // this.setSelectTeacher.push(arr[0].item_text)
-
-    // const newArray = this.setSelectTeacher.filter((elem, i, arr) => {
-    //   if (arr.indexOf(elem) === i) {
-    //     return elem
-    //   }
-    // })
-
-    // this.setSelectTeacher = newArray
-
-    // console.log(this.addIncres.value.nameTeacher[0].item_text)
-    // console.log(this.addIncres.value.nameTeacher)
   }
-  // onSelectAll(items: any) {
-  //   var arr = []
-  //   for (let item of items) {
-  //     arr.push(item.item_text)
-  //   }
-  //   this.addIncres.get('nameTeacher').setValue(arr)
-  //   console.log(this.addIncres.value.nameTeacher)
-  // }
   get f() { return this.addIncres.controls; }
   check() {
     var check = localStorage.getItem("check")
@@ -697,18 +672,18 @@ export class ManageExamComponent implements OnInit {
     this.disableBtnSave = false
     this.dataStudentNotMember = arrayStudentOfExcel.filter(item1 =>
       !this.dataStudent.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
-      console.log(this.dataStudentNotMember)
-      for(var item of this.dataStudentNotMember){
-        this.arrayStudentOfSubject.push({ username: item.username, name: item.name, surname: item.surname })
-        var obj = { name: item.name, surname: item.surname, username: item.username, password: item.password, types: item.types, email: item.email }
-        this.http.post<any>('http://localhost:4001/user/', obj).subscribe((res) => {
-          console.log(res.status)
-          this.disableBtnUpdate = false;
-        })
-      }
-      setTimeout(() => {
-      }, 3000);
-      this.getUserStudent();
+    console.log(this.dataStudentNotMember)
+    for (var item of this.dataStudentNotMember) {
+      this.arrayStudentOfSubject.push({ username: item.username, name: item.name, surname: item.surname })
+      var obj = { name: item.name, surname: item.surname, username: item.username, password: item.password, types: item.types, email: item.email }
+      this.http.post<any>('http://localhost:4001/user/', obj).subscribe((res) => {
+        console.log(res.status)
+        this.disableBtnUpdate = false;
+      })
+    }
+    setTimeout(() => {
+    }, 3000);
+    this.getUserStudent();
   }
 
   exportAsXLSX(): void {
@@ -729,16 +704,16 @@ export class ManageExamComponent implements OnInit {
       }
       this.arrayStudentNotSubject = []
       this.arrayStudentOfUpdate = this.arrayStudentOfSubject
-      this.arrayStudentNotSubject = this.checkStudentNotSubject(this.dataStudent,this.arrayStudentOfSubject)
+      this.arrayStudentNotSubject = this.checkStudentNotSubject(this.dataStudent, this.arrayStudentOfSubject)
 
     })
   }
 
-  checkStudentNotSubject(arr1 = [],arr2 = []){
+  checkStudentNotSubject(arr1 = [], arr2 = []) {
     return arr1.filter(item1 =>
       !arr2.some(item2 => (item2.username === item1.username && item2.name === item1.name)))
   }
-  
+
   disableBtnUpdate = true;
   setDataStudentExist(event, username: String, name: String, surname: String) {
     if (event.target.checked) {
@@ -769,10 +744,11 @@ export class ManageExamComponent implements OnInit {
     }
   }
   onClickUpdateStudent() {
-    for(var item of this.dataStudentNew){
+    for (var item of this.dataStudentNew) {
       this.arrayStudentOfUpdate.push({ username: item.username, name: item.name, surname: item.surname })
       this.arrayStudentNotSubject = this.dataStudentNew.filter(item2 => item.username !== item2.username);
     }
+    this.arrayStudentOfUpdate.sort((a,b) => a.username.localeCompare(b.username));
     var obj = {
       id: this.addIncres.value.id, name: this.addIncres.value.nameSubject, teacher:
         this.addIncres.value.nameTeacher, build: this.addIncres.value.build, room:
@@ -781,13 +757,17 @@ export class ManageExamComponent implements OnInit {
       term: this.addIncres.value.term, year: this.addIncres.value.year, sit: this.arrayStudentOfUpdate.length, student: this.arrayStudentOfUpdate
     }
     this.http.patch<any>('http://localhost:4001/learnsUpdate/', obj).subscribe((res) => {
-      console.log(obj)
-      this.disableBtnUpdate = true
-      this.allowAlertEdit = true
-      setTimeout(() => {
-        this.allowAlertEdit = false
-      }, 3000);
-      this.getSubjectLearn()
+      var updateStudent = { id: this.addIncres.value.id, listNisit: this.arrayStudentOfUpdate, amongNisit: this.arrayStudentOfUpdate.length }
+      this.http.patch<any>('http://localhost:4001/examUpdate', updateStudent).subscribe(res => {
+        console.log(obj)
+        console.log(updateStudent)
+        this.disableBtnUpdate = true
+        this.allowAlertEdit = true
+        setTimeout(() => {
+          this.allowAlertEdit = false
+        }, 3000);
+        this.getSubjectLearn()
+      })
     })
   }
 

@@ -324,6 +324,7 @@ export class ManageTestComponent implements OnInit {
     this.id = id
     this.name = name
     this.roomList = []
+    this.student = []
     console.log(this.form.get('nameExamer').value)
     if (faculty === "วิทยาการสารสนเทศ") {
       for (let item of this.builds) {
@@ -346,9 +347,6 @@ export class ManageTestComponent implements OnInit {
       }
     }
     this.selectedItems = dataExamer
-    while (this.student.length > 0) {
-      this.student.pop();
-    }
     if (this.sit !== 0) {
       this.http.get<any>('http://localhost:4001/exam/' + id).subscribe(result => {
         this.http.get<any>('http://localhost:4001/room/' + room).subscribe(result1 => {
