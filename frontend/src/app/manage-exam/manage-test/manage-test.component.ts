@@ -8,8 +8,6 @@ import { FilterPipe } from '../../setting-user/FilterPipe.component';
 import { OrderPipe } from 'ngx-order-pipe';
 import * as XLSX from 'xlsx';
 import { Md5 } from 'ts-md5/dist/md5';
-import axios from '../../../../node_modules/axios/dist/axios.min.js';
-
 @Component({
   selector: 'app-manage-test',
   templateUrl: './manage-test.component.html',
@@ -115,8 +113,8 @@ export class ManageTestComponent implements OnInit {
   }
   checkDataUser = false
   onGetBuildAndUsers() {
-    axios.get('http://localhost:4001/room').then(res => {
-      this.builds = res.data.data
+    this.http.get<any>('http://localhost:4001/room').subscribe(res => {
+      this.builds = res.data
     })
     this.http.get<any>('http://localhost:4001/user').subscribe(res => {
       this.users = res.data
@@ -164,8 +162,8 @@ export class ManageTestComponent implements OnInit {
   }
   checkselect = true
   getSubject() {
-    axios.get('http://localhost:4001/learns').then(res => {
-      this.subjectOpen = res.data.data
+    this.http.get<any>('http://localhost:4001/learns').subscribe(res => {
+      this.subjectOpen = res.data
       this.checkData = true;
       this.showSpinner()
     })
@@ -189,7 +187,7 @@ export class ManageTestComponent implements OnInit {
       listNisit: this.listNisit,
       statusExam: "เปิดการสอบ"
     }
-    axios.post('http://localhost:4001/exam', data).then(res => {
+    this.http.post<any>('http://localhost:4001/exam', data).subscribe(res => {
       if (res.data.status) {
         alert("เพิ่มข้อมูลเรียบร้อย")
         document.getElementById('closeModalInsert').click()
@@ -294,7 +292,7 @@ export class ManageTestComponent implements OnInit {
       room: this.form.value.room
     }
     console.log(data)
-    axios.patch('http://localhost:4001/examUpdate', data).then(res => {
+    this.http.patch<any>('http://localhost:4001/examUpdate', data).subscribe(res => {
       if (res.data.status) {
         alert("แก้ไขข้อมูลเรียบร้อย")
         document.getElementById('closeModalEdit').click()
@@ -435,7 +433,7 @@ export class ManageTestComponent implements OnInit {
           id: idCheck,
           statusExam: "ยกเลิกการสอบ"
         }
-        axios.patch('http://localhost:4001/examUpdate/status', data).then(res => {
+        this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
           if (res.data.status) {
             alert("แก้ไขข้อมูลเรียบร้อย")
             this.onGetTable()
@@ -453,7 +451,7 @@ export class ManageTestComponent implements OnInit {
       id: event,
       statusExam: "เปิดการสอบ"
     }
-    axios.patch('http://localhost:4001/examUpdate/status', data).then(res => {
+    this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
       if (res.data.status) {
         alert("แก้ไขข้อมูลเรียบร้อย")
         this.onGetTable()
