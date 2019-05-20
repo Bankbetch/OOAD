@@ -108,7 +108,7 @@ export class ManageTestComponent implements OnInit {
         number: this.lenghtData,
       }]
     })
-    this.setCheck = []
+    this.dataDelete = []
 
   }
   checkDataUser = false
@@ -337,7 +337,7 @@ export class ManageTestComponent implements OnInit {
       for (let item of this.examerList) {
         for (var i = 0; i < nameExamer.length; i++) {
           if (item.item_text === nameExamer[i]) {
-          dataExamer.push({item_id: item.item_id, item_text: nameExamer[i]})
+            dataExamer.push({ item_id: item.item_id, item_text: nameExamer[i] })
           }
         }
       }
@@ -354,7 +354,7 @@ export class ManageTestComponent implements OnInit {
           var row = result1.data[0].row
           var countRow = 1, countCol = 0;
           for (let item of listName) {
-    
+
             if (countCol < col * 2) {
               if (countRow <= row && countCol === 0) {
                 nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "A" + countRow }
@@ -409,7 +409,7 @@ export class ManageTestComponent implements OnInit {
               id: this.form.value.id,
               listNisit: this.student
             }
-            this.http.patch<any>("http://localhost:4001/examUpdate/",data).subscribe(result => {
+            this.http.patch<any>("http://localhost:4001/examUpdate/", data).subscribe(result => {
               console.log(data)
             })
           }
@@ -419,40 +419,69 @@ export class ManageTestComponent implements OnInit {
   }
   onItemSelect(items: any) {
   }
-  setCheck = []
+  arrayDeleteCheck = ""
+  dataDelete: Array<String> = [];
+
   onSetDataDelete(event, _id: string) {
-    var arr = []
     if (event.target.checked) {
-      this.setCheck.push(event.target.value)
+      this.arrayDeleteCheck = event.target.value
+      this.dataDelete.push(this.arrayDeleteCheck)
+      console.log(this.dataDelete)
     } else {
-      var array = this.setCheck
+      var array = this.dataDelete
       var index = array.indexOf(event.target.value)
       if (index !== -1) {
         array.splice(index, 1)
-        this.setCheck = array
+        this.dataDelete = array
       }
     }
   }
+
+  allowAlertDelete = false
+  allowAlertDeleteFail = false
   cancelExam() {
-    if (this.setCheck.length !== 0) {
-      if (this.setCheck.length === 1) {
-        var idCheck = this.setCheck[0]
-        var data = {
-          id: idCheck,
-          statusExam: "ยกเลิกการสอบ"
-        }
-        this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
-          if (res.data.status) {
-            alert("แก้ไขข้อมูลเรียบร้อย")
-            this.onGetTable()
-          }
-        })
-      } else {
-        alert("เลือกวิชาได้ทีละ 1 ครั้ง")
-      }
-    } else {
-      alert("กรุณาเลือกรายวิชาที่ต้องการยกเลิก")
+    // if (this.setCheck.length !== 0) {
+    //   if (this.setCheck.length === 1) {
+    //     var idCheck = this.setCheck[0]
+    //     var data = {
+    //       id: idCheck,
+    //       statusExam: "ยกเลิกการสอบ"
+    //     }
+    //     this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
+    //       if (res.data.status) {
+    //         alert("แก้ไขข้อมูลเรียบร้อย")
+    //         this.onGetTable()
+    //       }
+    //     })
+    //   } else {
+    //     alert("เลือกวิชาได้ทีละ 1 ครั้ง")
+    //   }
+    // } else {
+    //   alert("กรุณาเลือกรายวิชาที่ต้องการยกเลิก")
+    // }
+    var idCheck = this.dataDelete[0]
+    var data = {
+      id: idCheck,
+      statusExam: "ยกเลิกการสอบ"
     }
+    console.log(idCheck)
+    if (this.arrayDeleteCheck !== "" && this.dataDelete.length > 0) {
+      this.allowAlertDelete = true
+      setTimeout(() => {
+        this.allowAlertDelete = false
+      }, 3000);
+      this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
+        document.getElementById("closeModalDelete").click();
+        this.onGetTable()
+      })
+    }
+    if (this.arrayDeleteCheck == "" || this.dataDelete.length === 0) {
+      this.allowAlertDeleteFail = true
+      setTimeout(() => {
+        this.allowAlertDeleteFail = false
+      }, 3000);
+    }
+
   }
   openExam(event) {
     var data = {

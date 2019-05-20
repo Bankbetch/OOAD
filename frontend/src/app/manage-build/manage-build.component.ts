@@ -172,6 +172,7 @@ export class ManageBuildComponent implements OnInit {
         this.allowAlertDeleteFail = false
       }, 3000);
     }
+    
   }
 
   _id
