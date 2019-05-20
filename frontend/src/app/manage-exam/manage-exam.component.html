@@ -448,7 +448,7 @@
                             <div class="form-group">
                                 <label>รหัสวิชา</label>
                                 <select class="form-control" formControlName="id" (change)="checkIdAndSub()" [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
-                                                                <option disabled selected *ngIf="checkselect">เลือก</option>
+                                                                <option value="" disabled selected *ngIf="checkselect">เลือก</option>
                                                                 <option *ngFor="let item of dataSubject">{{item.id}}</option>
                                                             </select>
                                 <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
@@ -460,7 +460,7 @@
                             <div class="form-group">
                                 <label>ชื่อวิชา </label>
                                 <select class="form-control" formControlName="nameSubject" (change)="checkNameSub()" [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
-                                                                <option disabled selected *ngIf="checkselect">เลือก</option>
+                                                                <option value="" disabled selected *ngIf="checkselect">เลือก</option>
                                                                 <option *ngFor="let item of dataSubject">{{item.name}}</option>
                                                             </select>
                                 <div *ngIf="submitted && f.nameSubject.errors" class="invalid-feedback">
@@ -501,7 +501,7 @@
                             <div class="form-group">
                                 <label>ตึก </label>
                                 <select class="form-control" formControlName="build" (change)="checkRoomInsert()" [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
-                                                                <option disabled selected *ngIf="checkselect">เลือก</option>
+                                                                <option value="" disabled selected *ngIf="checkselect">เลือก</option>
                                                                 <option *ngFor="let item of dataSpliteBuild">{{item}}</option>
                                                             </select>
                                 <div *ngIf="submitted && f.build.errors" class="invalid-feedback">
@@ -515,8 +515,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ห้อง </label>
-                                <select class="form-control" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
-                                                                <option disabled selected *ngIf="checkselect">เลือก</option>
+                                <select class="form-control" aria-placeholder="'เลือก'" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
+                                                                <option value="" selected disabled>เลือก</option>
                                                                 <option *ngFor="let item of setDataRoomAfter">{{item}}</option>
                                                             </select>
                                 <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
@@ -548,7 +548,7 @@
                         <div class="col">
                             <label>ภาคเรียน </label>
                             <select class="form-control" formControlName="term" [ngClass]="{ 'is-invalid': submitted && f.term.errors }">
-                                                            <option disabled selected>เลือก</option>
+                                                            <option value="" disabled selected>เลือก</option>
                                                             <option *ngFor="let item of term">{{item.name}}</option>
                                                         </select>
                             <div *ngIf="submitted && f.term.errors" class="invalid-feedback">
@@ -562,7 +562,7 @@
                             <div class="form-group">
                                 <label>วัน </label>
                                 <select class="form-control" formControlName="day" (change)="checkTime()" [ngClass]="{ 'is-invalid': submitted && f.day.errors }">
-                                                                <option disabled selected>เลือก</option>
+                                                                <option value="" disabled selected>เลือก</option>
                                                                 <option>จันทร์</option>
                                                                 <option>อังคาร</option>
                                                                 <option>พุธ</option>
@@ -581,7 +581,7 @@
                             <div class="form-group">
                                 <label>เวลาเริ่ม </label>
                                 <select class="form-control" formControlName="timeStart" (change)="checkTimeStart()" *ngIf="hideEditStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }">
-                                                                <option disabled selected>เลือก</option>
+                                                                <option value="" disabled selected>เลือก</option>
                                                                 <option *ngFor="let item of timeStartO">{{item}}</option>
                                                             </select>
                                 <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
@@ -595,7 +595,7 @@
                             <div class="form-group">
                                 <label>เวลาจบ </label>
                                 <select class="form-control" placeholder="Ex.3" formControlName="timeEnd" *ngIf="hideEditEnd" (change)="checkTimeEnd()" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
-                                                                <option disabled selected>เลือก</option>
+                                                                <option value="" disabled selected>เลือก</option>
                                                                 <option *ngFor="let item of timeEnd0">{{item}}</option>
                                                             </select>
                                 <div *ngIf="submitted && f.timeEnd.errors" class="invalid-feedback">

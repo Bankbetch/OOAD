@@ -230,6 +230,8 @@ export class ManageExamComponent implements OnInit {
     })
   }
   checkselect = true
+  checkselectRoom = true
+
   checkIdAndSub() {
     if (this.addIncres.value.id) {
       for (let item of this.dataSubject) {
