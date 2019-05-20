@@ -15,14 +15,12 @@
             <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDel">
                 <i class="fa fa-trash"></i>
             </button>&nbsp;
-            <button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal"
-                (click)="onClear()"><i class="fa fa-plus-square"></i></button>
+            <button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" (click)="onClear()"><i class="fa fa-plus-square"></i></button>
         </div>
     </div>
 
     <!-- Modal Add -->
-    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -34,8 +32,7 @@
                         <div class="form-group">
                             <label>ตึก</label>
 
-                            <select class="form-control" formControlName="build" (change)="changeBuild()"
-                                [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
+                            <select class="form-control" formControlName="build" (change)="changeBuild()" [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
                                 <option selected *ngIf="disableSBuild" value="">เลือก</option>
                                 <option *ngFor="let item of dataBuild">{{item.name}}</option>
                             </select>
@@ -48,8 +45,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>ห้อง </label>
-                                    <input type="text" class="form-control" formControlName="room"
-                                        [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
+                                    <input type="text" class="form-control" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
                                     <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
                                         <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
                                     </div>
@@ -59,9 +55,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>จำนวนเก้าอี้ </label>
-                                    <input type="text" class="form-control" (keypress)=" notText($event)"
-                                        formControlName="sit" maxlength="3"
-                                        [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                                    <input type="text" class="form-control" (keypress)=" notText($event)" formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" [(ngModel)]="amoutChair" disabled />
                                     <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
                                         <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
                                     </div>
@@ -73,9 +67,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>row </label>
-                                    <input type="text" class="form-control" (keypress)=" notText($event)"
-                                        formControlName="row" maxlength="3"
-                                        [ngClass]="{ 'is-invalid': submitted && f.row.errors }" />
+                                    <input type="text" class="form-control" (keypress)=" notText($event)" formControlName="row" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.row.errors }" [(ngModel)]="row" (blur)="calculateAmoutChair()" />
                                     <div *ngIf="submitted && f.row.errors" class="invalid-feedback">
                                         <div *ngIf="f.row.errors.required">กรุณากรอกrow</div>
                                     </div>
@@ -84,9 +76,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>column </label>
-                                    <input type="text" class="form-control" (keypress)=" notText($event)"
-                                        formControlName="col" maxlength="3"
-                                        [ngClass]="{ 'is-invalid': submitted && f.col.errors }" />
+                                    <input type="text" class="form-control" (keypress)=" notText($event)" formControlName="col" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.col.errors }" [(ngModel)]="col" (blur)="calculateAmoutChair()" />
                                     <div *ngIf="submitted && f.col.errors" class="invalid-feedback">
                                         <div *ngIf="f.col.errors.required">กรุณากรอกcolumn</div>
                                     </div>
@@ -108,8 +98,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" (click)="onSubmit()">บันทึก</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="closeModalInsert">ยกเลิก</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalInsert">ยกเลิก</button>
                 </div>
             </div>
         </div>
@@ -118,8 +107,7 @@
 
 
     <!-- Modal Edit -->
-    <div class="modal fade" data-backdrop="false" id="exampleModal3" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" data-backdrop="false" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,8 +118,7 @@
                     <form [formGroup]="manageBuild" (ngSubmit)="Edit()">
                         <div class="form-group">
                             <label>ตึก</label>
-                            <select class="form-control" formControlName="build" (change)="changeBuild()"
-                                [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
+                            <select class="form-control" formControlName="build" (change)="changeBuild()" [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
                                 <option *ngFor="let item of dataBuild">{{item.name}}</option>.
                             </select>
                             <div *ngIf="submitted && f.build.errors" class="invalid-feedback">
@@ -142,8 +129,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>ห้อง </label>
-                                    <input type="text" class="form-control" formControlName="room"
-                                        [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
+                                    <input type="text" class="form-control" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
                                     <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
                                         <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
                                     </div>
@@ -153,9 +139,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>จำนวนเก้าอี้ </label>
-                                    <input type="text" class="form-control" (keypress)=" notText($event)"
-                                        formControlName="sit" maxlength="3"
-                                        [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                                    <input type="text" class="form-control" id="amoutChair" (keypress)=" notText($event)" formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" [(ngModel)]="amoutChair" disabled />
                                     <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
                                         <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
                                     </div>
@@ -167,9 +151,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>row </label>
-                                    <input type="text" class="form-control" (keypress)=" notText($event)"
-                                        formControlName="row" maxlength="3"
-                                        [ngClass]="{ 'is-invalid': submitted && f.row.errors }" />
+                                    <input type="text" id="row" class="form-control" (keypress)=" notText($event)" formControlName="row" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.row.errors }" [(ngModel)]="row" (blur)="calculateAmoutChair()" />
                                     <div *ngIf="submitted && f.row.errors" class="invalid-feedback">
                                         <div *ngIf="f.row.errors.required">กรุณากรอกrow</div>
                                     </div>
@@ -178,9 +160,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>column </label>
-                                    <input type="text" class="form-control" (keypress)=" notText($event)"
-                                        formControlName="col" maxlength="3"
-                                        [ngClass]="{ 'is-invalid': submitted && f.col.errors }" />
+                                    <input type="text" id="col" class="form-control" (keypress)=" notText($event)" formControlName="col" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.col.errors }" [(ngModel)]="col" (blur)="calculateAmoutChair()" />
                                     <div *ngIf="submitted && f.col.errors" class="invalid-feedback">
                                         <div *ngIf="f.col.errors.required">กรุณากรอกcolumn</div>
                                     </div>
@@ -197,8 +177,7 @@
                         </div> -->
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">บันทึก</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalEdit"
-                                (click)="onClear()">ยกเลิก</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalEdit" (click)="onClear()">ยกเลิก</button>
                         </div>
                     </form>
                     <div class="alert alert-warning text-center" role="alert" *ngIf="allowAlertEdit">
@@ -224,8 +203,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    *ngFor="let item of data | filterPipe :{build:searchString,room:searchString,sit:searchString,status:searchString} | paginate: { itemsPerPage: dataOtShow, currentPage: p }; let i = index">
+                <tr *ngFor="let item of data | filterPipe :{build:searchString,room:searchString,sit:searchString,status:searchString} | paginate: { itemsPerPage: dataOtShow, currentPage: p }; let i = index">
                     <td> <label><input type="checkbox" value="{{item._id}}"
                                 (change)="onSetData($event,item._id,i+1)"></label>
                     </td>
@@ -234,8 +212,7 @@
                     <td>{{item.sit}}</td>
                     <!-- <td>{{item.status}}</td> -->
                     <td>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3"
-                            data-dismiss="modal" (click)="onClickEdit(item._id,item.build,item.room,item.sit,item.row,item.col,
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3" data-dismiss="modal" (click)="onClickEdit(item._id,item.build,item.room,item.sit,item.row,item.col,
                 item.mon,
                 item.tue,
                 item.wed,
@@ -254,8 +231,7 @@
 
 <!--ModalDelete-->
 
-<div class="modal fade" data-backdrop="false" id="modalDel" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" data-backdrop="false" id="modalDel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">

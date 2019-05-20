@@ -302,4 +302,14 @@ export class RoomComponent implements OnInit {
       return false;
     return true;
   }
+
+  row
+  col
+  amoutChair
+
+  calculateAmoutChair() {
+    this.amoutChair = parseInt(this.row)*parseInt(this.col);
+    console.log(this.row)
+  }
+
 }

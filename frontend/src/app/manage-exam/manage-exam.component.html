@@ -294,7 +294,7 @@
                                             แก้ไขข้อมูลเรียบร้อย
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success" >บันทึก</button>
+                                            <button type="submit" class="btn btn-success">บันทึก</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClickClear()" id=closeModaledit>ยกเลิก</button>
                                         </div>
                                     </form>
@@ -515,7 +515,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ห้อง </label>
-                                <select class="form-control" aria-placeholder="'เลือก'" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
+                                <select class="form-control" formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }">
                                                                 <option value="" selected disabled>เลือก</option>
                                                                 <option *ngFor="let item of setDataRoomAfter">{{item}}</option>
                                                             </select>
