@@ -12,14 +12,17 @@
             <input type="text" class="form-control" name="searchString" placeholder="ค้นหา" [(ngModel)]="searchString">
         </div>
         <div class="col">
-            <button class="btn btn-outline-danger" (click)="onClickDelete()"><i
-                    class="fa fa-trash"></i></button>&nbsp;
-            <button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" (click)="onClear()"><i class="fa fa-plus-square"></i></button>
+            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDel">
+                <i class="fa fa-trash"></i>
+            </button>&nbsp;
+            <button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal"
+                (click)="onClear()"><i class="fa fa-plus-square"></i></button>
         </div>
     </div>
 
     <!-- Modal Add -->
-    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,7 +34,8 @@
                         <div class="form-group">
                             <label>ตึก</label>
 
-                            <select class="form-control" formControlName="build" (change)="changeBuild()" [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
+                            <select class="form-control" formControlName="build" (change)="changeBuild()"
+                                [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
                                 <option selected *ngIf="disableSBuild" value="">เลือก</option>
                                 <option *ngFor="let item of dataBuild">{{item.name}}</option>
                             </select>
@@ -40,19 +44,53 @@
                                 <div *ngIf="f.build.errors.required">กรุณเลือกข้อมูลตึก</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>ห้อง </label>
-                            <input type="text" class="form-control"  formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
-                            <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
-                                <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
-                            </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>ห้อง </label>
+                                    <input type="text" class="form-control" formControlName="room"
+                                        [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
+                                    <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
+                                        <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
+                                    </div>
 
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>จำนวนเก้าอี้ </label>
+                                    <input type="text" class="form-control" (keypress)=" notText($event)"
+                                        formControlName="sit" maxlength="3"
+                                        [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                                    <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
+                                        <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>จำนวนเก้าอี้ </label>
-                            <input type="text" class="form-control" (keypress)=" notText($event)" formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
-                            <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
-                                <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>row </label>
+                                    <input type="text" class="form-control" (keypress)=" notText($event)"
+                                        formControlName="row" maxlength="3"
+                                        [ngClass]="{ 'is-invalid': submitted && f.row.errors }" />
+                                    <div *ngIf="submitted && f.row.errors" class="invalid-feedback">
+                                        <div *ngIf="f.row.errors.required">กรุณากรอกrow</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>column </label>
+                                    <input type="text" class="form-control" (keypress)=" notText($event)"
+                                        formControlName="col" maxlength="3"
+                                        [ngClass]="{ 'is-invalid': submitted && f.col.errors }" />
+                                    <div *ngIf="submitted && f.col.errors" class="invalid-feedback">
+                                        <div *ngIf="f.col.errors.required">กรุณากรอกcolumn</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -70,7 +108,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" (click)="onSubmit()">บันทึก</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalInsert">ยกเลิก</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        id="closeModalInsert">ยกเลิก</button>
                 </div>
             </div>
         </div>
@@ -79,7 +118,8 @@
 
 
     <!-- Modal Edit -->
-    <div class="modal fade" data-backdrop="false" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" data-backdrop="false" id="exampleModal3" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -90,26 +130,61 @@
                     <form [formGroup]="manageBuild" (ngSubmit)="Edit()">
                         <div class="form-group">
                             <label>ตึก</label>
-                            <select class="form-control" formControlName="build" (change)="changeBuild()" [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
+                            <select class="form-control" formControlName="build" (change)="changeBuild()"
+                                [ngClass]="{ 'is-invalid': submitted && f.build.errors }">
                                 <option *ngFor="let item of dataBuild">{{item.name}}</option>.
                             </select>
                             <div *ngIf="submitted && f.build.errors" class="invalid-feedback">
                                 <div *ngIf="f.build.errors.required">กรุณากรอกข้อมูลตึก</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>ห้อง </label>
-                            <input type="text" class="form-control" placeholder="Ex.if-5t-02"  formControlName="room" [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
-                            <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
-                                <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
-                            </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>ห้อง </label>
+                                    <input type="text" class="form-control" formControlName="room"
+                                        [ngClass]="{ 'is-invalid': submitted && f.room.errors }" />
+                                    <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
+                                        <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
+                                    </div>
 
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>จำนวนเก้าอี้ </label>
+                                    <input type="text" class="form-control" (keypress)=" notText($event)"
+                                        formControlName="sit" maxlength="3"
+                                        [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
+                                    <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
+                                        <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>จำนวนเก้าอี้ </label>
-                            <input type="text" class="form-control" placeholder="Ex.60" (keypress)=" notText($event)"  formControlName="sit" maxlength="3" [ngClass]="{ 'is-invalid': submitted && f.sit.errors }" />
-                            <div *ngIf="submitted && f.sit.errors" class="invalid-feedback">
-                                <div *ngIf="f.sit.errors.required">กรุณากรอกจำนวนเก้าอี้</div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>row </label>
+                                    <input type="text" class="form-control" (keypress)=" notText($event)"
+                                        formControlName="row" maxlength="3"
+                                        [ngClass]="{ 'is-invalid': submitted && f.row.errors }" />
+                                    <div *ngIf="submitted && f.row.errors" class="invalid-feedback">
+                                        <div *ngIf="f.row.errors.required">กรุณากรอกrow</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>column </label>
+                                    <input type="text" class="form-control" (keypress)=" notText($event)"
+                                        formControlName="col" maxlength="3"
+                                        [ngClass]="{ 'is-invalid': submitted && f.col.errors }" />
+                                    <div *ngIf="submitted && f.col.errors" class="invalid-feedback">
+                                        <div *ngIf="f.col.errors.required">กรุณากรอกcolumn</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -122,7 +197,8 @@
                         </div> -->
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">บันทึก</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalEdit" (click)="onClear()">ยกเลิก</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalEdit"
+                                (click)="onClear()">ยกเลิก</button>
                         </div>
                     </form>
                     <div class="alert alert-warning text-center" role="alert" *ngIf="allowAlertEdit">
@@ -148,7 +224,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of data | filterPipe :{build:searchString,room:searchString,sit:searchString,status:searchString} | paginate: { itemsPerPage: dataOtShow, currentPage: p }; let i = index">
+                <tr
+                    *ngFor="let item of data | filterPipe :{build:searchString,room:searchString,sit:searchString,status:searchString} | paginate: { itemsPerPage: dataOtShow, currentPage: p }; let i = index">
                     <td> <label><input type="checkbox" value="{{item._id}}"
                                 (change)="onSetData($event,item._id,i+1)"></label>
                     </td>
@@ -157,7 +234,8 @@
                     <td>{{item.sit}}</td>
                     <!-- <td>{{item.status}}</td> -->
                     <td>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3" data-dismiss="modal" (click)="onClickEdit(item._id,item.build,item.room,item.sit,item.status,
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3"
+                            data-dismiss="modal" (click)="onClickEdit(item._id,item.build,item.room,item.sit,item.row,item.col,
                 item.mon,
                 item.tue,
                 item.wed,
@@ -173,6 +251,35 @@
         <pagination-controls (pageChange)="p = $event" class="text-center"></pagination-controls>
     </div>
 </div>
+
+<!--ModalDelete-->
+
+<div class="modal fade" data-backdrop="false" id="modalDel" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle text-center">ลบผู้ใช้งาน</h5>
+            </div>
+            <div class="modal-body text-center">
+                ยืนยันการลบข้อมูล
+            </div>
+            <div class="alert alert-danger text-center" role="alert" *ngIf="allowAlertDelete">
+                ลบข้อมูลเรียบร้อย
+            </div>
+            <div class="alert alert-danger text-center" role="alert" *ngIf="allowAlertDeleteFail">
+                กรุณาเลือกช่องเพื่อลบข้อมูล
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onClickDelete()">ตกลง</button>
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id=closeModalDelete>ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---->
 
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
     <p style="font-size: 20px; color: white">Loading...</p>

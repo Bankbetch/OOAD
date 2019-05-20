@@ -34,8 +34,13 @@ export class ExamScheduleComponent implements OnInit {
       }
       for (var item of dataExams) {
         for (var item2 of item.listNisit) {
-          if(item2.name == this.getName){
-            this.dataShow.push("รหัสวิชา "+item.id+"ชื่อวิชา "+item.name)
+          if (item2.name == this.getName) {
+            this.dataShow.push({
+              id: item.id, name: item.name,
+              room: item.room, day: item.day, faculty: item.faculty,
+              time: item.timeStart + " - " + item.timeEnd,
+              sit: item2.examSit
+            })
             console.log(this.dataShow)
           }
         }

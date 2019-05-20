@@ -30,7 +30,9 @@ exports.create = (req, res) => {
                 thu: req.body.time,
                 fri: req.body.time,
                 sat: req.body.time,
-                sun: req.body.time
+                sun: req.body.time,
+                row: req.body.row,
+                col: req.body.col
             })
             newRoom.save()
             res.json({ status: true })
