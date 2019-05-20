@@ -13,7 +13,7 @@ export class TeacherComponent implements OnInit {
   constructor(private http: HttpClient,
     private title: Title,
     private spinner: NgxSpinnerService) {
-    this.title.setTitle("ตารางสอบ")
+    this.title.setTitle("รายการคุมสอบ")
   }
   getName
   getSurname
