@@ -24,8 +24,12 @@ export class AppComponent {
   checkNavbarAdminBuild = false
   getStatusNoPageLogin = "false"
   navbarLogin = true
+  year
+
   ngOnInit(): void {
-    this.check()
+    this.check(),
+    this.year = ((new Date()).getFullYear())+543;
+
   }
   ngDoCheck() {
     this.check()

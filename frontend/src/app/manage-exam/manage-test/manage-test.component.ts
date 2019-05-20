@@ -279,10 +279,11 @@ export class ManageTestComponent implements OnInit {
     var getArr = []
     arr = this.form.value.nameExamer
     for (let item of arr) {
+      console.log(item)
       var splitted = item.item_text.split(" ");
       var name = splitted[0]
       var surname = splitted[1]
-      getArr.push({name:name,surname:surname})
+      getArr.push(name + " " + surname)
     }
     var data = {
       id: this.form.value.id,
@@ -332,12 +333,18 @@ export class ManageTestComponent implements OnInit {
         }
       }
     }
-    var num1 = 1
-    var num2 = 2
     var nameSJ
+    var dataExamer = []
     if (nameExamer.length >= 1) {
-      this.selectedItems = [{ item_id: num1, item_text: nameExamer[0] }]
+      for (let item of this.examerList) {
+        for (var i = 0; i < nameExamer.length; i++) {
+          if (item.item_text === nameExamer[i]) {
+          dataExamer.push({item_id: item.item_id, item_text: nameExamer[i]})
+          }
+        }
+      }
     }
+    this.selectedItems = dataExamer
     while (this.student.length > 0) {
       this.student.pop();
     }

@@ -1,7 +1,8 @@
 <div class="wrapper sticky-top">
     <!-- Sidebar  -->
     <nav id="sidebar" *ngIf="navbarLogin">
-        <div class="sidebar-header">
+        <div class="sidebar-header text-center">
+            <img src="../assets/img/logosidebar.png" />
             <h3>examination</h3>
         </div>
 
@@ -49,7 +50,6 @@
                     </li>
                 </ul>
             </li>
-
         </ul>
     </nav>
 
@@ -58,7 +58,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="navbarLogin">
             <div class="container-fluid">
-                <a class="nav-link" routerLink="/หน้าหลัก" routerLinkActive="active-link">หน้าหลัก</a>
+                <a class="nav-link">ปีการศึกษา: {{ year }}</a>
                 <ul class="nav navbar-nav ml-auto">
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
