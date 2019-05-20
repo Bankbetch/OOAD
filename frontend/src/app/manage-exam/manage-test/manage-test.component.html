@@ -69,7 +69,7 @@
                     <th scope="col">จำนวนนิสิต</th>
                     <th scope="col">คนคุมสอบ</th>
                     <th scope="col">สถานะ</th>
-                    <th scope="col"></th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -104,8 +104,23 @@
             item.amongNisit,
             item.examer
             )">
-                            <i class="fa fa-edit"></i></button>&nbsp;
-                        <!-- <button class="btn btn-info" (click)="openExam(item.id)"><i class="fa fa-book"></i>นัดสอบใหม่</button> -->
+                            <i class="fa fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#modalSit"
+                            data-dismiss="modal" (click)=" tableClick(
+                                item.id,
+                                item.name,
+                                item.teacher,
+                                item.faculty,
+                                item.timeStart,
+                                item.timeEnd,
+                                item.day,
+                                item.room,
+                                item.amongNisit,
+                                item.examer
+                                ) ">
+                            <i class="fa fa-male"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -145,7 +160,7 @@
                             <div class="form-group">
                                 <label>ชื่อวิชา </label>
                                 <select class="form-control" formControlName="nameSubject" (change)="checkNameSubject()"
-                                    [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+                                    [ngClass]="{ 'is-invalid': submitted && f.nameSubject.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of subjectOpen">{{item.name}}</option>
                                 </select>
@@ -160,7 +175,7 @@
                             <div class="form-group">
                                 <label>ชื่ออาจารย์ </label>
                                 <input type="text" formControlName="nameTeacher" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.faculty.errors }" disabled />
+                                    [ngClass]="{ 'is-invalid': submitted && f.nameTeacher.errors }" disabled />
                                 <div *ngIf="submitted && f.nameTeacher.errors" class="invalid-feedback">
                                     <div *ngIf="f.nameTeacher.errors.required">
                                         กรุณากรอกชื่ออาจารย์
@@ -324,9 +339,10 @@
                             <div class="form-group">
                                 <label>เวลาที่สิ้นสุดสอบ </label>
                                 <input type="text" formControlName="timeEnd" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled  *ngIf = "hideTimeBtn"/>
-                                <select class="form-control" formControlName="timeEnd" id="timeEnd" *ngIf = "hideTimeSelect"
-                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
+                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled
+                                    *ngIf="hideTimeBtn" />
+                                <select class="form-control" formControlName="timeEnd" id="timeEnd"
+                                    *ngIf="hideTimeSelect" [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }">
                                     <option disabled selected *ngIf="checkselect">เลือก</option>
                                     <option *ngFor="let item of pickTimeEnd">{{item}}</option>
                                 </select>
@@ -377,6 +393,64 @@
         </div>
     </div>
 </div>
+
+ <!--modalSit-->
+
+ <div class="modal fade" data-backdrop="false" id="modalSit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">ที่นั่งสอบของนิสิต</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="font-weight-bold text-left"> {{id}} &nbsp; {{name}} </h3>
+                    </div>
+                    <div class="col col-lg-4">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4 class="font-weight-bold text-left"> จำนวนนิสิต {{sit}} คน </h4>
+                    </div>
+                    <div class="col">
+                        
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered table-sm table-fixed">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ลำดับ</th>
+                                    <th scope="col">รหัสนิสิต</th>
+                                    <th scope="col">ชื่อ-สกุล</th>
+                                    <th scope="col">ที่นั่ง</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of student | orderBy: order:true:'case-insensitive' ; let i = index">
+                                    <th scope="row">{{i+1}} </th>
+                                    <td>{{item.username}} </td>
+                                    <td>{{item.name}} {{item.surname}} </td>
+                                    <td>{{item.examSit}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modalSit-->
 
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
     <p style="font-size: 20px; color: white">Loading...</p>

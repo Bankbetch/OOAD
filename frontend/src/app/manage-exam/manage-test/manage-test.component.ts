@@ -43,6 +43,7 @@ export class ManageTestComponent implements OnInit {
   examerList = []
   amongNisit
   listNisit = []
+  nisit = []
   hideTimeBtn = true
   hideTimeSelect = false
   ngOnInit() {
@@ -89,6 +90,7 @@ export class ManageTestComponent implements OnInit {
       this.data = result.data
       for (let item of result.data) {
         this.ArrayExamer = item.examer
+        this.nisit = item.listNisit
       }
       this.sortedCollection = this.orderPipe.transform(this.data, '');
       this.lenghtData = this.sortedCollection.length
@@ -171,13 +173,14 @@ export class ManageTestComponent implements OnInit {
 
   insertExam() {
     this.submitted = true
-    if (this.form.invalid) {
-      return;
-    }
+    console.log(this.form.invalid)
+    // if (this.form.invalid) {
+    //   return;
+    // }
     var data = {
       id: this.form.value.id,
-      nameSubject: this.form.value.nameSubject,
-      nameTeacher: this.form.value.nameTeacher,
+      name: this.form.value.nameSubject,
+      teacher: this.form.value.nameTeacher,
       faculty: this.form.value.faculty,
       timeStart: this.form.value.timeStart,
       timeEnd: this.form.value.timeEnd,
@@ -299,7 +302,11 @@ export class ManageTestComponent implements OnInit {
   selectedItems = []
   dropdownSettings = {};
   roomList = []
-  tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, room: string, amongNisit: string,nameExamer:string) {
+  sit
+  id
+  name
+  student = []
+  tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, room: string, amongNisit: string, nameExamer: string) {
     this.form.get('id').setValue(id);
     this.form.get('nameSubject').setValue(name);
     this.form.get('nameTeacher').setValue(teacher);
@@ -309,6 +316,9 @@ export class ManageTestComponent implements OnInit {
     this.form.get('timeEnd').setValue(timeEnd)
     this.form.get('room').setValue(room)
     this.form.get('nameExamer').setValue(nameExamer)
+    this.sit = amongNisit
+    this.id = id
+    this.name = name
     console.log(this.form.get('nameExamer').value)
     if (faculty === "วิทยาการสารสนเทศ") {
       for (let item of this.builds) {
@@ -319,11 +329,76 @@ export class ManageTestComponent implements OnInit {
         }
       }
     }
-     var num1 = 1
-    var  num2 = 2
-      if (nameExamer.length >= 1) {
-        this.selectedItems = [{ item_id: num1, item_text: nameExamer[0] }]
-
+    var num1 = 1
+    var num2 = 2
+    var nameSJ
+    if (nameExamer.length >= 1) {
+      this.selectedItems = [{ item_id: num1, item_text: nameExamer[0] }]
+    }
+    while (this.student.length > 0) {
+      this.student.pop();
+    }
+    if (this.sit !== 0) {
+      this.http.get<any>('http://localhost:4001/exam/' + id).subscribe(result => {
+        this.http.get<any>('http://localhost:4001/room/' + room).subscribe(result1 => {
+          var listName = result.data[0].listNisit
+          var col = result1.data[0].col
+          var row = result1.data[0].row
+          var countRow = 1, countCol = 0;
+          for (let item of listName) {
+            if (countCol < col * 2) {
+              if (countRow <= row && countCol === 0) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "A" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2;
+              }
+              if (countRow <= row && countCol === 1) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "B" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2;
+              }
+              if (countRow <= row && countCol === 2) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "C" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2;
+              }
+              if (countRow <= row && countCol === 3) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "D" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2;
+              }
+              if (countRow <= row && countCol === 4) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "A" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2
+              }
+              if (countRow <= row && countCol === 5) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "B" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2
+              }
+              if (countRow <= row && countCol === 6) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "C" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2
+              }
+              if (countRow <= row && countCol === 7) {
+                nameSJ = { username: item.username, name: item.name, surname: item.surname, examSit: "D" + countRow }
+                this.student.push(nameSJ)
+                countRow += 2
+              }
+              if (countRow > row && countCol < col) {
+                countRow = 1;
+                countCol++;
+              }
+              if (countCol >= col && countRow > row) {
+                countRow = 2;
+                countCol++;
+              }
+            }
+          }
+        })
+      })
     }
   }
   onItemSelect(items: any) {

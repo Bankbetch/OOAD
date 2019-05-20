@@ -5,6 +5,8 @@ module.exports = (app) => {
 
     app.get('/room', room.findAll);
 
+    app.get('/room/:id', room.find);
+
     app.patch('/roomUpdate', room.update);
 
     app.post('/roomDelete', room.delete);

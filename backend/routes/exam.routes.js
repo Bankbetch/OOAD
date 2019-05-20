@@ -5,10 +5,12 @@ module.exports = (app) => {
 
     app.get('/exam', exam.findAll)
 
-    app.patch('examUpdate', exam.update)
+    app.get('/exam/:id', exam.find)
 
-    app.patch('examUpdate/status', exam.updateStatus)
+    app.patch('/examUpdate', exam.update)
 
-    app.post('examDelete', exam.delete)
+    app.patch('/examUpdate/status', exam.updateStatus)
+
+    app.post('/examDelete', exam.delete)
 
 }

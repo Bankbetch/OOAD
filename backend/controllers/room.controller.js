@@ -8,6 +8,14 @@ exports.findAll = (req, res) => {
     })
 };
 
+exports.find = (req, res) => {
+    Room.find({ room: req.params.id }, function (err, obj) {
+        if (!err) {
+            res.json({ data: obj })
+        }
+    })
+};
+
 exports.create = (req, res) => {
     Room.findOne({ room: req.body.room }, (_, result) => {
         if (result === null) {

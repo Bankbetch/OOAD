@@ -8,6 +8,14 @@ exports.findAll = (req, res) => {
     })
 }
 
+exports.find = (req, res) => {
+    Exam.find({id: req.params.id}, function (err, obj) {
+        if (!err) {
+            res.json({ data: obj })
+        }
+    })
+}
+
 exports.create = (req, res) => {
     Exam.findOne({ id: req.body.id }, (_, result) => {
         if (result === null) {
@@ -21,7 +29,7 @@ exports.create = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    Learn.findOneAndUpdate({ id: req.body.id }, { $set: req.body }, () => {
+    Exam.findOneAndUpdate({ id: req.body.id }, { $set: req.body }, () => {
         res.json({ status: true })
     });
 }
@@ -31,11 +39,11 @@ exports.updateStatus = (req, res) => {
         const dataUpdate = {
             statusExam: req.body.statusExam,
         };
-        Learn.findOneAndUpdate({ id: req.body.id }, { $set: dataUpdate }, () => {
+        Exam.findOneAndUpdate({ id: req.body.id }, { $set: dataUpdate }, () => {
             res.json({ status: true })
         });
     } else {
-        Learn.findOneAndUpdate({ id: req.body.id }, { $set: dataUpdate }, () => {
+        Exam.findOneAndUpdate({ id: req.body.id }, { $set: dataUpdate }, () => {
             res.json({ status: true })
         });
     }
