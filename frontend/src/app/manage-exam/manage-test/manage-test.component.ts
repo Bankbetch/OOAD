@@ -471,6 +471,7 @@ export class ManageTestComponent implements OnInit {
         this.allowAlertDelete = false
       }, 3000);
       this.http.patch<any>('http://localhost:4001/examUpdate/status', data).subscribe(res => {
+        console.log(res.status)
         document.getElementById("closeModalDelete").click();
         this.onGetTable()
       })
