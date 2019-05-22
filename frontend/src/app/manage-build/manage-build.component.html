@@ -44,96 +44,97 @@
                 item.amongRoom
                 )"> <i class="fa fa-edit"></i></button>
                     </td>
-
-                    <!-- Modal Add -->
-                    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-md" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                                        <div class="form-group">
-                                            <label>ชื่อ</label>
-                                            <input type="text" class="form-control" formControlName="name"
-                                                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                                <div *ngIf="f.name.errors.required">กรุณากรอกข้อมูลตึก</div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>จำนวนห้อง </label>
-                                            <input type="text" class="form-control" (keypress)="notText($event)"
-                                                formControlName="among" maxlength="3"
-                                                [ngClass]="{ 'is-invalid': submitted && f.among.errors }" />
-                                            <div *ngIf="submitted && f.among.errors" class="invalid-feedback">
-                                                <div *ngIf="f.among.errors.required">กรุณาเลือกห้อง</div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success">บันทึก</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                id="closeModalInsert">ยกเลิก</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal -->
-
-                    <!-- Modal Edit -->
-                    <div class="modal fade" data-backdrop="false" id="exampleModal3" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-md" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form [formGroup]="form" (ngSubmit)="Edit()">
-                                        <div class="form-group">
-                                            <label>ตึก</label>
-                                            <input type="text" class="form-control" formControlName="name"
-                                                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                                <div *ngIf="f.name.errors.required">กรุณากรอกชื่อตึก</div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>จำนวนห้อง </label>
-                                            <input type="text" class="form-control" (keypress)="notText($event)" formControlName="among"
-                                                maxlength="3"
-                                                [ngClass]="{ 'is-invalid': submitted && f.among.errors }" />
-                                            <div *ngIf="submitted && f.among.errors" class="invalid-feedback">
-                                                <div *ngIf="f.among.errors.required">กรุณากรอกจำนวนห้อง</div>
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-warning text-center" role="alert"
-                                            *ngIf="allowAlertEdit">
-                                            แก้ไขอมูลเรียบร้อย
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success">บันทึก</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                id="closeModalEdit">ยกเลิก</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal -->
                 </tr>
             </tbody>
         </table>
         <pagination-controls (pageChange)="p = $event" class="text-center"></pagination-controls>
     </div>
 </div>
+
+ <!-- Modal Add -->
+ <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog"
+ aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-md" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
+         </div>
+         <div class="modal-body">
+
+             <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                 <div class="form-group">
+                     <label>ชื่อ</label>
+                     <input type="text" class="form-control" formControlName="name"
+                         [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                     <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                         <div *ngIf="f.name.errors.required">กรุณากรอกข้อมูลตึก</div>
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     <label>จำนวนห้อง </label>
+                     <input type="text" class="form-control" (keypress)="notText($event)"
+                         formControlName="among" maxlength="3"
+                         [ngClass]="{ 'is-invalid': submitted && f.among.errors }" />
+                     <div *ngIf="submitted && f.among.errors" class="invalid-feedback">
+                         <div *ngIf="f.among.errors.required">กรุณาเลือกห้อง</div>
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="submit" class="btn btn-success">บันทึก</button>
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                         id="closeModalInsert">ยกเลิก</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal Edit -->
+<div class="modal fade" data-backdrop="false" id="exampleModal3" tabindex="-1" role="dialog"
+ aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-md" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
+         </div>
+         <div class="modal-body">
+
+             <form [formGroup]="form" (ngSubmit)="Edit()">
+                 <div class="form-group">
+                     <label>ตึก</label>
+                     <input type="text" class="form-control" formControlName="name"
+                         [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                     <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                         <div *ngIf="f.name.errors.required">กรุณากรอกชื่อตึก</div>
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     <label>จำนวนห้อง </label>
+                     <input type="text" class="form-control" (keypress)="notText($event)" formControlName="among"
+                         maxlength="3"
+                         [ngClass]="{ 'is-invalid': submitted && f.among.errors }" />
+                     <div *ngIf="submitted && f.among.errors" class="invalid-feedback">
+                         <div *ngIf="f.among.errors.required">กรุณากรอกจำนวนห้อง</div>
+                     </div>
+                 </div>
+                 <div class="alert alert-warning text-center" role="alert"
+                     *ngIf="allowAlertEdit">
+                     แก้ไขอมูลเรียบร้อย
+                 </div>
+                 <div class="modal-footer">
+                     <button type="submit" class="btn btn-success">บันทึก</button>
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                         id="closeModalEdit">ยกเลิก</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
+</div>
+<!-- Modal -->
+
 
 <!--ModalDelete-->
 

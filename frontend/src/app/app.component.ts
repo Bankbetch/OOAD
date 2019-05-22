@@ -28,7 +28,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.check(),
-    this.year = ((new Date()).getFullYear())+543;
+    this.year = ((new Date()).getFullYear());
 
   }
   ngDoCheck() {

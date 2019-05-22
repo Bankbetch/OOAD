@@ -12,6 +12,7 @@ var examSchema = mongoose.Schema({
     listNisit: Array,
     statusExam: String,
     examer: Array,
-    room:String
+    room: String,
+    term: String
 })
 module.exports = mongoose.model('exams', examSchema)
