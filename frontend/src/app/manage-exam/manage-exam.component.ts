@@ -240,13 +240,11 @@ export class ManageExamComponent implements OnInit {
     if (this.addIncres.value.build) {
       for (let item of this.dataRoom) {
         if (this.addIncres.value.build === item.build) {
-          console.log(this.sit + " _ArrayStudent_ " + item.sit)
-          if (this.sit <= item.sit) {
+         
+
             this.setDataRoom.push(item.room)
-          }
-          else if (this.ArrayStudent.length <= item.sit && this.ArrayStudent.length != 0) {
-            this.setDataRoom.push(item.room)
-          }
+          
+
         }
 
         const newArray = this.setDataRoom.filter((elem, i, arr) => {

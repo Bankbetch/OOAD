@@ -14,6 +14,7 @@ import { Md5 } from 'ts-md5/dist/md5';
   styleUrls: ['./manage-test.component.css']
 })
 export class ManageTestComponent implements OnInit {
+  term: any;
 
   constructor(private router: Router, private http: HttpClient,
     private formBuilder: FormBuilder, private title: Title,
@@ -32,6 +33,7 @@ export class ManageTestComponent implements OnInit {
   sortedCollection: any[];
   data: any[]
   form: FormGroup
+  formDate: FormGroup
   subjectOpen: any[]
   pickTimeStart = ["8:00", "9:00", "10:00", "11:00", "12.00", "13:00", "14:00", "15:00", "16:00", "17:00"]
   checkTimeEnd = ["9:55", "10:55", "11:55", "12:55", "13:55", "14:55", "15:55", "16:55", "17:55", "18:55", "19:55"]
@@ -56,9 +58,12 @@ export class ManageTestComponent implements OnInit {
       day: ['', Validators.required],
       nameExamer: ['', Validators.required],
       room: ['', Validators.required],
+      term: ['', Validators.required],
+      typeExam: ['', Validators.required]
     })
   }
   get f() { return this.form.controls; }
+  get f1() { return this.formDate.controls; }
   check() {
     var check = localStorage.getItem("check")
     var getLogin = localStorage.getItem("setLogin")
@@ -187,6 +192,7 @@ export class ManageTestComponent implements OnInit {
       day: this.form.value.day,
       amongNisit: this.amongNisit,
       listNisit: this.listNisit,
+      term: this.term,
       statusExam: "เปิดการสอบ"
     }
     this.http.post<any>('http://localhost:4001/exam', data).subscribe(res => {
@@ -199,6 +205,20 @@ export class ManageTestComponent implements OnInit {
       }
     })
   }
+
+  // calculateAmoutChair() {
+  //   var getOpenDate = this.formDate.value.openDateExam
+  //   var setCloseDate
+  //   // splitted = str.split(" ", 3); 
+  //   for (var i = 0; i < 8; i++) {
+  //     setCloseDate = getOpenDate.splice("/", 2)
+  //     console.log(+setCloseDate + i)
+  //   }
+  //   // this.formDate.get('closeDateExam').setValue()
+  // }
+  // onInsertExam() {
+
+  // }
   onClear() {
     this.form.get('id').setValue('เลือก');
     this.form.get('nameSubject').setValue("เลือก");
@@ -206,7 +226,9 @@ export class ManageTestComponent implements OnInit {
     this.form.get('faculty').setValue("");
     this.form.get('timeStart').setValue("")
     this.form.get('timeEnd').setValue("")
-    this.form.get('day').setValue("")
+    this.form.get('term').setValue("")
+    this.form.get('day').setValue(new Date)
+    this.form.get('typeExam').setValue("")
     this.form.get('room').setValue("")
     this.submitted = false
     this.hideTimeBtn = true
@@ -224,6 +246,7 @@ export class ManageTestComponent implements OnInit {
           this.form.get('nameSubject').setValue(item.name)
           this.form.get('faculty').setValue(item.faculty)
           this.form.get('nameTeacher').setValue(item.teacher)
+          this.form.get('term').setValue(item.term)
           this.amongNisit = item.sit
           this.listNisit = item.student
         }
@@ -238,6 +261,7 @@ export class ManageTestComponent implements OnInit {
           this.form.get('id').setValue(item.id)
           this.form.get('faculty').setValue(item.faculty)
           this.form.get('nameTeacher').setValue(item.teacher)
+          this.form.get('term').setValue(item.term)
           this.amongNisit = item.sit
           this.listNisit = item.student
         }
@@ -272,6 +296,8 @@ export class ManageTestComponent implements OnInit {
 
   onEdit() {
     this.submitted = true
+    this.form.controls['term'].setValue(true);
+    this.form.controls['typeExam'].setValue(true);
     if (this.form.invalid) {
       return;
     }
@@ -311,7 +337,7 @@ export class ManageTestComponent implements OnInit {
   name
   room
   student = []
-  tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, room: string, amongNisit: string, nameExamer: string) {
+  tableClick(id: string, name: string, teacher: string, faculty: string, timeStart: string, timeEnd: string, day: string, term: string, room: string, amongNisit: string, examer: string) {
     this.form.get('id').setValue(id);
     this.form.get('nameSubject').setValue(name);
     this.form.get('nameTeacher').setValue(teacher);
@@ -320,29 +346,36 @@ export class ManageTestComponent implements OnInit {
     this.form.get('timeStart').setValue(timeStart)
     this.form.get('timeEnd').setValue(timeEnd)
     this.form.get('room').setValue(room)
-    this.form.get('nameExamer').setValue(nameExamer)
+    this.form.get('nameExamer').setValue(examer)
+    this.form.get('term').setValue(term)
     this.sit = amongNisit
     this.id = id
     this.name = name
     this.room = room
     this.roomList = []
-    console.log(this.form.get('nameExamer').value)
-    if (faculty === "วิทยาการสารสนเทศ") {
+    this.student = []
+    console.log(room)
+
+    if (faculty === "คณะวิทยาการสารสนเทศ") {
       for (let item of this.builds) {
         var buildsitParse = parseInt(item.sit)
         var amongNisitParse = parseInt(amongNisit)
-        if (item.build === "วิทยาการสารสนเทศ" && buildsitParse >= amongNisitParse) {
+        if (item.build === "วิทยาการสารสนเทศ") {
           this.roomList.push(item.room)
+          // console.log(this.roomList)
         }
       }
     }
     
     var dataExamer = []
-    if (nameExamer.length >= 1) {
+    console.log(examer)
+
+    if (examer.length >= 0) {
       for (let item of this.examerList) {
-        for (var i = 0; i < nameExamer.length; i++) {
-          if (item.item_text === nameExamer[i]) {
-            dataExamer.push({ item_id: item.item_id, item_text: nameExamer[i] })
+        for (var i = 0; i < examer.length; i++) {
+          if (item.item_text === examer[i]) {
+            console.log(this.examerList)
+            dataExamer.push({ item_id: item.item_id, item_text: examer[i] })
           }
         }
       }

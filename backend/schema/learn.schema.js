@@ -14,6 +14,6 @@ var learnSchema = moogoose.Schema({
     timeStart: String,
     timeEnd: String,
     sit: String,
-    student: Array
+    student: Array,
 })
 module.exports = moogoose.model('subjectlearns', learnSchema)
