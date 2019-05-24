@@ -235,8 +235,6 @@ export class ManageTestComponent implements OnInit {
     this.hideTimeSelect = false
     var timeStartElement = <HTMLInputElement>document.getElementById('timeStart');
     var timeEndElement = <HTMLInputElement>document.getElementById('timeEnd');
-    timeStartElement.setAttribute("disabled", 'disabled');
-    timeEndElement.setAttribute("disabled", 'disabled');
   }
 
   checkIdSubject() {
@@ -356,15 +354,11 @@ export class ManageTestComponent implements OnInit {
     this.student = []
     console.log(room)
 
-    if (faculty === "คณะวิทยาการสารสนเทศ") {
       for (let item of this.builds) {
-        var buildsitParse = parseInt(item.sit)
-        var amongNisitParse = parseInt(amongNisit)
-        if (item.build === "วิทยาการสารสนเทศ") {
           this.roomList.push(item.room)
           // console.log(this.roomList)
-        }
-      }
+  
+
     }
     
     var dataExamer = []

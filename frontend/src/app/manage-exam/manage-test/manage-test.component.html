@@ -221,8 +221,8 @@
                             <div class="form-group">
                                 <select class="form-control" formControlName="timeStart" (change)="checkTime()"
                                     id="timeStart" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }"
-                                    disabled>
-                                    <option disabled selected *ngIf="checkselect">เลือก</option>
+                                    >
+                                    <option disabled selected >เลือก</option>
                                     <option *ngFor="let item of pickTimeStart">{{item}}</option>
                                 </select>
                                 <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
@@ -234,8 +234,8 @@
                             <div class="form-group">
                                 <label>เวลาที่สิ้นสุดสอบ </label>
                                 <select class="form-control" formControlName="timeEnd" id="timeEnd"
-                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" disabled>
-                                    <option disabled selected *ngIf="checkselect">เลือก</option>
+                                    [ngClass]="{ 'is-invalid': submitted && f.timeEnd.errors }" >
+                                    <option disabled selected>เลือก</option>
                                     <option *ngFor="let item of pickTimeEnd">{{item}}</option>
                                 </select>
                                 <div *ngIf="submitted && f.timeEnd.errors" class="invalid-feedback">
@@ -248,7 +248,7 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">บันทึก</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClear()"
-                            id=closeModalInsert>ยกเลิก</button>
+                            id="closeModalInsert">ยกเลิก</button>
                     </div>
                 </form>
             </div>
@@ -365,7 +365,7 @@
                                     <option *ngFor="let item of roomList">{{item}}</option>
                                 </select>
                                 <div *ngIf="submitted && f.room.errors" class="invalid-feedback">
-                                    <div *ngIf="f.room.errors.required">กรุณาเลือกเวลาที่สิ้นสุดสอบ</div>
+                                    <div *ngIf="f.room.errors.required">กรุณาเลือกห้อง</div>
                                 </div>
                             </div>
                         </div>
